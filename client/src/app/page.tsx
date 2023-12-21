@@ -2,7 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 //styles
-import styles from './page.module.scss'
+import styles from './Page.module.scss'
 
 //components
 import Button from '@/components/Button'
@@ -27,7 +27,7 @@ export default function Home() {
                 />
                 Sign up with Google
               </Button>
-              <div className={styles.separator}>
+              <div className={styles.separator}> 
                 <div></div>
                 <p>or</p>
                 <div></div>

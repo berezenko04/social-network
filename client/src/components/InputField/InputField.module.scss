@@ -1,0 +1,55 @@
+@import '@/scss/variables.scss';
+
+.field {
+    background-color: transparent;
+    border: 1px solid $grey-800;
+    border-radius: 4px;
+    width: 100%;
+    position: relative;
+
+    &:focus-within {
+        outline: 2px solid $primary-500;
+        outline-offset: -2px;
+    }
+
+    &__label {
+        position: absolute;
+        left: 16px;
+        top: 50%;
+        transform: translate(0, -50%);
+        color: $grey-500;
+        font-size: 16px;
+        line-height: 24px;
+        z-index: 0;
+        cursor: text;
+        transition: all .2s ease-in;
+    }
+
+    &__count {
+        opacity: 0;
+        position: absolute;
+        top: 4px;
+        right: 8px;
+        color: $grey-500;
+        font-size: 13px;
+        transition: all .2s ease-in;
+        z-index: 0;
+    }
+
+    input {
+        width: 100%;
+        color: $white;
+        font-size: 16px;
+        padding: 24px 16px 8px;
+
+        &:focus~span:not(.field__count) {
+            transform: translateY(calc(-115% + 4px));
+            font-size: 13px;
+            color: $primary-500
+        }
+
+        &:focus~.field__count {
+            opacity: 1;
+        }
+    }
+}
