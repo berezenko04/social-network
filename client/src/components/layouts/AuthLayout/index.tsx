@@ -19,7 +19,9 @@ const AuthLayout: React.FC<IAuthLayoutProps> = ({ children }) => {
                         height={32}
                     />
                 </div>
-                {children}
+                <div className={styles.layout__form}>
+                    {children}
+                </div>
             </div>
         </main>
     )

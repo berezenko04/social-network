@@ -21,6 +21,10 @@ input:focus::placeholder {
 
 button {
     cursor: pointer;
+
+    &:disabled {
+        cursor: default;
+    }
 }
 
 textarea {

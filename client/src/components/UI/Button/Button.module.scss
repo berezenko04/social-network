@@ -15,7 +15,9 @@
         padding: 10px 16px;
     }
 
-    &__md {}
+    &__lg {
+        padding: 16px 32px;
+    }
 
     img {
         width: 20px;
@@ -43,6 +45,12 @@
 
         &:hover {
             background-color: $grey-100;
+        }
+
+        &:disabled {
+            background-color: $grey-500;
+            border-color: $grey-500;
+            color: $black-900;
         }
     }
 
