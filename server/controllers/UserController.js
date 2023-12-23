@@ -6,7 +6,6 @@ import UserModel from '../schemas/user.js'
 
 export const register = async (req, res) => {
     try {
-        console.log(req.body);
         const existingUser = await UserModel.findOne({ email: req.body.email });
 
         if (existingUser) {

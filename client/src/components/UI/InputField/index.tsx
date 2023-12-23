@@ -1,6 +1,6 @@
 'use client';
 
-import { ChangeEvent, Fragment, InputHTMLAttributes, useState } from 'react'
+import { ChangeEvent, Fragment, InputHTMLAttributes, forwardRef, useState } from 'react'
 import cn from 'classnames'
 
 //styles
@@ -8,13 +8,13 @@ import styles from './InputField.module.scss'
 
 
 interface IInputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
-    name: string,
+    placeholder: string,
     counter?: boolean,
     maxLength?: number,
     error?: string
 }
 
-const InputField: React.FC<IInputFieldProps> = ({ name, maxLength = 0, counter = false, error = '', ...props }) => {
+const InputField = forwardRef<HTMLInputElement, IInputFieldProps>(({ placeholder, maxLength = 0, counter = false, error = '', ...props }, ref) => {
     const [fieldValue, setFieldValue] = useState<string>('');
     const [isFocused, setIsFocused] = useState<boolean>(false);
 
@@ -40,14 +40,16 @@ const InputField: React.FC<IInputFieldProps> = ({ name, maxLength = 0, counter =
                     onInput={handleChangeInput}
                     onFocus={() => setIsFocused(true)}
                     onBlur={() => setIsFocused(false)}
+                    ref={ref}
+                    autoComplete='off'
                     {...props}
                 />
-                <span className={styles.field__label}>{name}</span>
+                <span className={styles.field__label}>{placeholder}</span>
                 {counter && <span className={styles.field__count}>{fieldValue.length} / {maxLength}</span>}
             </label>
             <p className={styles.field__hint}>{error}</p>
         </Fragment>
     )
-}
+})
 
 export default InputField

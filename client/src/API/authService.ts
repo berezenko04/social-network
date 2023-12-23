@@ -1,10 +1,10 @@
-import axios from "axios";
+import axios from "@/middlewares/axios";
 
 //types
 import { RegisterData } from "@/components/Forms/RegisterForm";
 
 
-export const register = async (formData: RegisterData) => {
+export const signUp = async (formData: RegisterData) => {
     const { data } = await axios.post('/register', formData);
     return data;
 }

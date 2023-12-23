@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { forwardRef, useEffect, useRef, useState } from 'react';
 import cn from 'classnames'
 
 //styles
@@ -8,18 +8,18 @@ import styles from './Select.module.scss'
 
 interface ISelectProps {
     data: string[];
-    name: string
+    placeholder: string
+    onSelect: (value: string) => void,
 }
 
-
-const Select: React.FC<ISelectProps> = ({ data, name }) => {
+const Select = forwardRef<HTMLDivElement, ISelectProps>(({ data, onSelect, placeholder }, ref) => {
     const [isOpened, setIsOpened] = useState<boolean>(false);
     const [selectedItem, setSelectedItem] = useState<string>('');
-    const ref = useRef<HTMLDivElement>(null);
+    const selectRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const handleClickOutside = (e: MouseEvent) => {
-            if (ref.current && !ref.current.contains(e.target as Node)) {
+            if (selectRef.current && !selectRef.current.contains(e.target as Node)) {
                 setIsOpened(false);
             }
         }
@@ -28,10 +28,11 @@ const Select: React.FC<ISelectProps> = ({ data, name }) => {
         return () => {
             document.removeEventListener('click', handleClickOutside);
         }
-    }, [ref])
+    }, [selectRef])
 
     const handleSelectItem = (item: string) => {
         setSelectedItem(item);
+        onSelect(item);
         setIsOpened(false);
     }
 
@@ -39,12 +40,12 @@ const Select: React.FC<ISelectProps> = ({ data, name }) => {
         <div
             className={cn(styles.select, isOpened ? styles.select__opened : '',
                 selectedItem ? styles.select__filled : '')}
-            ref={ref}
+            ref={selectRef}
         >
             <div className={styles.select__head} onClick={() => setIsOpened(true)}>
-                <span>{name}</span>
+                <span>{placeholder}</span>
                 <div className={styles.select__head__current}>
-                    <p>{selectedItem}</p>
+                    <p ref={ref}>{selectedItem}</p>
                 </div>
             </div>
             {isOpened &&
@@ -64,8 +65,8 @@ const Select: React.FC<ISelectProps> = ({ data, name }) => {
                     </ul>
                 </div>
             }
-        </div >
+        </div>
     )
-}
+})
 
 export default Select

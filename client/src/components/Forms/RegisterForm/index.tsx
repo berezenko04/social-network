@@ -2,6 +2,7 @@
 
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
+import Joi from 'joi';
 
 //styles
 import styles from './RegisterForm.module.scss'
@@ -16,8 +17,12 @@ import { getYears } from '@/utils/getYears'
 import { getDays } from '@/utils/getDays'
 import { getMonths } from '@/utils/getMonts'
 
+//API
+import { signUp } from '@/API/authService';
+
 
 type TFormValues = {
+    name: string
     email: string,
     password: string,
     day: string,
@@ -25,7 +30,10 @@ type TFormValues = {
     year: string
 };
 
+type TFormErrors = Record<string, { message: string }>;
+
 export type RegisterData = {
+    name: string,
     email: string,
     password: string,
     birthDate: string
@@ -33,19 +41,59 @@ export type RegisterData = {
 
 const RegisterForm: React.FC = () => {
     const router = useRouter();
-    const { register, handleSubmit, formState: { errors }, watch, } = useForm<TFormValues>();
+
+    const { register, handleSubmit, setValue, trigger, formState: { errors, isValid }, watch } = useForm<TFormValues>({
+        resolver: async (data) => {
+            try {
+                const values = await schema.validateAsync(data, { abortEarly: false });
+                return {
+                    values,
+                    errors: {},
+                };
+            } catch (error: any) {
+                return {
+                    values: {},
+                    errors: error.details.reduce((acc: TFormErrors, { path, message }) => {
+                        const fieldName = Array.isArray(path) ? path[0] : path as keyof TFormValues;
+                        acc[fieldName] = { message };
+                        return acc;
+                    }, {} as TFormErrors),
+                };
+            }
+        },
+        mode: 'onChange'
+    });
+
+    const schema = Joi.object({
+        name: Joi.string().required().min(5).regex(/[a-zA-Zа-яА-Я]+ [a-zA-Zа-яА-Я]+/).messages({
+            'string.base': 'Full name should be a text',
+            'string.empty': 'Full name is required',
+            'string.min': 'Too short',
+            'string.pattern.base': 'Full name should be contains name and last name',
+        }),
+        email: Joi.string().email({ tlds: false }).required().messages({
+            'string.empty': 'Email is required',
+            'string.email': 'Invalid email'
+        }),
+        password: Joi.string().required().min(8).messages({
+            'string.empty': 'Password is required',
+            'string.min': 'Too short',
+        }),
+        day: Joi.string().required(),
+        month: Joi.string().required(),
+        year: Joi.string().required()
+    });
 
     const onSubmit: SubmitHandler<TFormValues> = async (data) => {
         try {
             const { day, month, year, ...restData } = data;
-            const birthDate = `${day}/${month}/${year}`;
-            const newData: RegisterData = {
+            const birthDate: string = `${day} ${month} ${year}`;
+            const newData = {
                 birthDate,
                 ...restData
             }
-
-            await register(newData);
-            router.push('/home');
+            await signUp(newData);
+            router.push('/login');
         } catch (err) {
             console.error(err);
         }
@@ -56,32 +104,63 @@ const RegisterForm: React.FC = () => {
             <InputField
                 required
                 type='text'
-                name='Name'
                 counter
-                error='Hello world!'
-                maxLength={50}
+                error={errors.name?.message}
+                maxLength={32}
+                placeholder='Full Name'
+                {...register("name")}
             />
             <InputField
                 required
                 type='email'
-                name='Email'
+                error={errors.email?.message}
+                placeholder='Email'
+                {...register("email")}
             />
             <InputField
                 required
                 type='password'
-                name='Password'
+                counter
+                maxLength={32}
+                placeholder='Password'
+                error={errors.password?.message}
+                {...register("password")}
             />
             <div className={styles.form__selects}>
-                <Select data={getMonths()} name='Month' />
-                <Select data={getDays()} name='Day' />
-                <Select data={getYears()} name='Year' />
+                <Select
+                    data={getMonths()}
+                    {...register('month')}
+                    placeholder='Month'
+                    onSelect={(value) => {
+                        setValue('month', value);
+                        trigger('month');
+                    }}
+                />
+                <Select
+                    data={getDays()}
+                    {...register('day')}
+                    placeholder='Day'
+                    onSelect={(value) => {
+                        setValue('day', value);
+                        trigger('day');
+                    }}
+                />
+                <Select
+                    data={getYears()}
+                    {...register('year')}
+                    placeholder='Year'
+                    onSelect={(value) => {
+                        setValue('year', value);
+                        trigger('year');
+                    }}
+                />
             </div>
             <div className={styles.form__submit}>
                 <Button
                     variant="secondary"
                     size="lg"
                     type="submit"
-                    disabled
+                    disabled={!isValid}
                 >
                     Sign Up
                 </Button>

@@ -2,28 +2,6 @@
 
 .homepage {
 
-  .separator {
-    display: flex;
-    align-items: center;
-    gap: 0;
-
-    div {
-      height: 1px;
-      width: 100%;
-      background-color: $grey-800;
-    }
-
-    p {
-      padding: 0 8px;
-    }
-  }
-
-  &__wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 48px;
-  }
-
   &__form {
     display: flex;
     flex-direction: column;
@@ -43,6 +21,22 @@
 
       a {
         color: $primary-500;
+      }
+    }
+
+    .separator {
+      display: flex;
+      align-items: center;
+      gap: 0;
+
+      div {
+        height: 1px;
+        width: 100%;
+        background-color: $grey-800;
+      }
+
+      p {
+        padding: 0 8px;
       }
     }
   }

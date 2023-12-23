@@ -20,7 +20,9 @@ const AuthLayout: React.FC<IAuthLayoutProps> = ({ children }) => {
                     />
                 </div>
                 <div className={styles.layout__form}>
-                    {children}
+                    <div className={styles.layout__form__wrapper}>
+                        {children}
+                    </div>
                 </div>
             </div>
         </main>
