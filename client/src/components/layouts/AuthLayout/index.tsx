@@ -1,7 +1,9 @@
 import Image from 'next/image'
+import { ToastContainer } from 'react-toastify'
 
 //styles
 import styles from './AuthLayout.module.scss'
+import 'react-toastify/dist/ReactToastify.css';
 
 interface IAuthLayoutProps {
     children: React.ReactNode
@@ -25,6 +27,15 @@ const AuthLayout: React.FC<IAuthLayoutProps> = ({ children }) => {
                     </div>
                 </div>
             </div>
+            <ToastContainer
+                position="bottom-center"
+                autoClose={4000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                theme="dark"
+            />
         </main>
     )
 }

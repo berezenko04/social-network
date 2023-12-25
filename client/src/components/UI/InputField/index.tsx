@@ -41,7 +41,7 @@ const InputField = forwardRef<HTMLInputElement, IInputFieldProps>(({ placeholder
                     onFocus={() => setIsFocused(true)}
                     onBlur={() => setIsFocused(false)}
                     ref={ref}
-                    autoComplete='off'
+                    autoComplete='nope'
                     {...props}
                 />
                 <span className={styles.field__label}>{placeholder}</span>

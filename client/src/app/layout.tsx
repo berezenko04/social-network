@@ -1,8 +1,11 @@
 import type { Metadata } from 'next'
 import { Montserrat } from 'next/font/google'
+
+//styles
 import '@/scss/main.scss';
 
-const inter = Montserrat({ subsets: ['latin'] })
+
+const montserrat = Montserrat({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Social Network',
@@ -16,7 +19,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={montserrat.className}>
+        {children}
+      </body>
     </html>
   )
 }

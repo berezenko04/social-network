@@ -3,6 +3,7 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import Joi from 'joi';
+import { toast } from 'react-toastify';
 
 //styles
 import styles from './RegisterForm.module.scss'
@@ -21,6 +22,7 @@ import { getMonths } from '@/utils/getMonts'
 import { signUp } from '@/API/authService';
 
 
+
 type TFormValues = {
     name: string
     email: string,
@@ -30,19 +32,12 @@ type TFormValues = {
     year: string
 };
 
-type TFormErrors = Record<string, { message: string }>;
-
-export type RegisterData = {
-    name: string,
-    email: string,
-    password: string,
-    birthDate: string
-}
+export type TFormErrors = Record<string, { message: string }>;
 
 const RegisterForm: React.FC = () => {
     const router = useRouter();
 
-    const { register, handleSubmit, setValue, trigger, formState: { errors, isValid }, watch } = useForm<TFormValues>({
+    const { register, handleSubmit, setValue, trigger, formState: { errors, isValid } } = useForm<TFormValues>({
         resolver: async (data) => {
             try {
                 const values = await schema.validateAsync(data, { abortEarly: false });
@@ -53,7 +48,8 @@ const RegisterForm: React.FC = () => {
             } catch (error: any) {
                 return {
                     values: {},
-                    errors: error.details.reduce((acc: TFormErrors, { path, message }) => {
+                    errors: error.details.reduce((acc: TFormErrors, { path, message }:
+                        { path: string[] | string, message: string }) => {
                         const fieldName = Array.isArray(path) ? path[0] : path as keyof TFormValues;
                         acc[fieldName] = { message };
                         return acc;
@@ -94,8 +90,10 @@ const RegisterForm: React.FC = () => {
             }
             await signUp(newData);
             router.push('/login');
-        } catch (err) {
-            console.error(err);
+        } catch (err: any) {
+            if (err.response && err.response.status == 409) {
+                toast.error('This email has been registered already');
+            }
         }
     }
 
