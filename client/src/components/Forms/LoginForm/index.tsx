@@ -61,7 +61,10 @@ const LoginForm: React.FC = () => {
 
     const onSubmit: SubmitHandler<TFormValues> = async (data) => {
         try {
-            await login(data);
+            const response = await login(data);
+            if ('token' in response) {
+                window.localStorage.setItem('token', response.token as string);
+            }
             router.push('/home');
         } catch (err: any) {
             if (err.response && err.response.status == 401) {

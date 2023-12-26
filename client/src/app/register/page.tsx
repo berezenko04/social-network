@@ -1,10 +1,12 @@
+import { NextPage } from 'next'
+
 //components
 import AuthLayout from '@/components/layouts/AuthLayout'
 import RegisterForm from '@/components/Forms/RegisterForm'
 import AuthComponent from '@/components/AuthComponent'
 
 
-const Register: React.FC = () => {
+const Register: NextPage = () => {
     return (
         <AuthLayout>
             <>
