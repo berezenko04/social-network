@@ -22,7 +22,6 @@ import { getMonths } from '@/utils/getMonts'
 import { signUp } from '@/API/authService';
 
 
-
 type TFormValues = {
     name: string
     email: string,

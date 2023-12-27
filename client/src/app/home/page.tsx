@@ -1,8 +1,15 @@
-import React from 'react'
+import { NextPage } from 'next'
 
-const Home: React.FC = () => {
+//components
+import PrimaryLayout from '@/components/layouts/PrimaryLayout'
+
+
+
+const Home: NextPage = () => {
     return (
-        <div>Home</div>
+        <PrimaryLayout>
+
+        </PrimaryLayout>
     )
 }
 
