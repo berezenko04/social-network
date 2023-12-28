@@ -1,6 +1,6 @@
 'use client';
 
-import { ChangeEvent, Fragment, InputHTMLAttributes, forwardRef, useState } from 'react'
+import { ChangeEvent, Fragment, InputHTMLAttributes, forwardRef, useEffect, useState } from 'react'
 import cn from 'classnames'
 
 //styles
@@ -11,10 +11,16 @@ interface IInputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
     placeholder: string,
     counter?: boolean,
     maxLength?: number,
-    error?: string
+    error?: string,
 }
 
-const InputField = forwardRef<HTMLInputElement, IInputFieldProps>(({ placeholder, maxLength = 0, counter = false, error = '', ...props }, ref) => {
+const InputField = forwardRef<HTMLInputElement, IInputFieldProps>(({
+    placeholder,
+    maxLength = 0,
+    counter = false,
+    error = '',
+    ...props
+}, ref) => {
     const [fieldValue, setFieldValue] = useState<string>('');
     const [isFocused, setIsFocused] = useState<boolean>(false);
 
@@ -33,15 +39,13 @@ const InputField = forwardRef<HTMLInputElement, IInputFieldProps>(({ placeholder
                     isFocused ? styles.field__focused : '',
                     fieldValue ? styles.field__filled : '',
                     error ? styles.field__error : '')}
-                tabIndex={0}
             >
                 <input
                     value={fieldValue}
                     onInput={handleChangeInput}
-                    onFocus={() => setIsFocused(true)}
-                    onBlur={() => setIsFocused(false)}
                     ref={ref}
-                    autoComplete='nope'
+                    onFocus={() => setIsFocused(true)}
+                    autoComplete='new-password'
                     {...props}
                 />
                 <span className={styles.field__label}>{placeholder}</span>

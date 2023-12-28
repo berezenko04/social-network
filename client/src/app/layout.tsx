@@ -4,6 +4,11 @@ import { Montserrat } from 'next/font/google'
 //styles
 import '@/scss/main.scss';
 
+//redux
+import ReduxProvider from '@/redux/provider';
+
+//components
+import CheckAuth from '@/components/ClientSide/CheckAuth';
 
 const montserrat = Montserrat({ subsets: ['latin'] })
 
@@ -20,7 +25,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={montserrat.className}>
-        {children}
+        <ReduxProvider>
+          {children}
+          <CheckAuth />
+        </ReduxProvider>
       </body>
     </html>
   )

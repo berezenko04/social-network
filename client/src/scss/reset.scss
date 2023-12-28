@@ -15,8 +15,10 @@ textarea {
     font-family: inherit;
 }
 
-input:focus::placeholder {
-    color: transparent;
+input {
+    &:focus::placeholder {
+        color: transparent;
+    }
 }
 
 button {

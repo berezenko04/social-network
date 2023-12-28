@@ -8,7 +8,6 @@ import styles from './Page.module.scss'
 import Button from '@/components/UI/Button'
 import AuthLayout from '@/components/layouts/AuthLayout'
 import AuthComponent from '@/components/AuthComponent'
-import Loader from '@/components/Loader'
 
 
 export default function Home() {

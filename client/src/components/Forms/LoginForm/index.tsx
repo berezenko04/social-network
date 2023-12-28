@@ -3,6 +3,7 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import Joi from 'joi';
+import Cookies from 'js-cookie'
 import { toast } from 'react-toastify'
 
 //styles
@@ -12,11 +13,11 @@ import styles from './LoginForm.module.scss'
 import InputField from '@/components/UI/InputField';
 import Button from '@/components/UI/Button';
 
-//API
-import { login } from '@/API/authService';
-
 //types
 import { TFormErrors } from '../RegisterForm';
+
+//API
+import { login } from '@/API/authService';
 
 
 export type TFormValues = {
@@ -63,7 +64,7 @@ const LoginForm: React.FC = () => {
         try {
             const response = await login(data);
             if ('token' in response) {
-                window.localStorage.setItem('token', response.token as string);
+                Cookies.set('token', response.token as string, { expires: 7, path: '/' });
             }
             router.push('/home');
         } catch (err: any) {

@@ -5,8 +5,12 @@ import styles from './PrimaryLayout.module.scss'
 import Sidebar from "@/components/Sidebar"
 import Header from '@/components/Header'
 
+interface IPrimaryLayoutProps {
+    children: React.ReactNode
+}
 
-const PrimaryLayout: React.FC = () => {
+
+const PrimaryLayout: React.FC<IPrimaryLayoutProps> = ({ children }) => {
 
     return (
         <div className={styles.layout}>
@@ -14,7 +18,7 @@ const PrimaryLayout: React.FC = () => {
                 <div className={styles.layout__wrapper}>
                     <Header />
                     <main>
-
+                        {children}
                     </main>
                     <Sidebar />
                 </div>
