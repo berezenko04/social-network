@@ -3,3 +3,5 @@ export enum Status {
     SUCCESS = 'success',
     ERROR = 'error'
 }
+
+export type TFormErrors = Record<string, { message: string }>;

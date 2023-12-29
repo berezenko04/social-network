@@ -1,28 +1,46 @@
 'use client';
 
-import { ChangeEvent, Fragment, InputHTMLAttributes, forwardRef, useEffect, useState } from 'react'
+import { ChangeEvent, Fragment, useState } from 'react'
+import { useController, Control } from 'react-hook-form';
 import cn from 'classnames'
 
 //styles
 import styles from './InputField.module.scss'
 
 
-interface IInputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
+interface IInputFieldProps {
     placeholder: string,
     counter?: boolean,
     maxLength?: number,
     error?: string,
+    name: string,
+    control: any,
+    type: string,
+    defaultValue?: string,
+    required?: boolean
 }
 
-const InputField = forwardRef<HTMLInputElement, IInputFieldProps>(({
+const InputField: React.FC<IInputFieldProps> = ({
     placeholder,
     maxLength = 0,
     counter = false,
     error = '',
-    ...props
-}, ref) => {
+    name,
+    control,
+    type,
+    required,
+    defaultValue = '',
+}) => {
     const [fieldValue, setFieldValue] = useState<string>('');
     const [isFocused, setIsFocused] = useState<boolean>(false);
+
+    const {
+        field: { onBlur, ref, onChange },
+    } = useController({
+        name,
+        control,
+        defaultValue,
+    });
 
     const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.target.value;
@@ -30,6 +48,11 @@ const InputField = forwardRef<HTMLInputElement, IInputFieldProps>(({
         if (maxLength === 0 || inputValue.length <= maxLength) {
             setFieldValue(inputValue);
         }
+    }
+
+    const handleBlur = () => {
+        onBlur();
+        setIsFocused(false);
     }
 
     return (
@@ -44,9 +67,12 @@ const InputField = forwardRef<HTMLInputElement, IInputFieldProps>(({
                     value={fieldValue}
                     onInput={handleChangeInput}
                     ref={ref}
+                    onBlur={handleBlur}
+                    onChange={onChange}
                     onFocus={() => setIsFocused(true)}
                     autoComplete='new-password'
-                    {...props}
+                    type={type}
+                    required={required}
                 />
                 <span className={styles.field__label}>{placeholder}</span>
                 {counter && <span className={styles.field__count}>{fieldValue.length} / {maxLength}</span>}
@@ -54,6 +80,6 @@ const InputField = forwardRef<HTMLInputElement, IInputFieldProps>(({
             <p className={styles.field__hint}>{error}</p>
         </Fragment>
     )
-})
+}
 
 export default InputField

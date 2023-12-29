@@ -25,7 +25,6 @@ export const userSlice = createSlice({
 
         builder.addCase(fetchAuthMe.fulfilled, (state, action: PayloadAction<IUserData>) => {
             state.data = action.payload;
-            console.log(state.data);
             state.status = Status.SUCCESS;
         })
 

@@ -36,6 +36,12 @@
         &:hover {
             background-color: $primary-600;
         }
+
+        &:disabled {
+            background-color: $grey-500;
+            border-color: $grey-500;
+            color: $black-900;
+        }
     }
 
     &__secondary {

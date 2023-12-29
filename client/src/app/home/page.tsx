@@ -2,13 +2,17 @@ import { NextPage } from 'next'
 
 //components
 import PrimaryLayout from '@/components/layouts/PrimaryLayout'
-import ProfileInfoForm from '@/components/Forms/ProfileInfoForm'
 
 
 const Home: NextPage = () => {
     return (
         <PrimaryLayout>
-            <ProfileInfoForm />
+            <>
+                {[...Array(100)].map((_, idx) => (
+                    <h1 key={idx}>qq</h1>
+                ))}
+            </>
+
         </PrimaryLayout>
     )
 }

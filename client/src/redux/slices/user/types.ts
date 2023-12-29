@@ -15,3 +15,10 @@ export interface IUserData {
     username: string
 }
 
+export interface IUpdateInfo {
+    username: string,
+    avatar: File,
+    name: string,
+    birthDate: string,
+}
+

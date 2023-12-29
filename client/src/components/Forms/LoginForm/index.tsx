@@ -14,7 +14,7 @@ import InputField from '@/components/UI/InputField';
 import Button from '@/components/UI/Button';
 
 //types
-import { TFormErrors } from '../RegisterForm';
+import { TFormErrors } from '@/@types/type';
 
 //API
 import { login } from '@/API/authService';
@@ -28,7 +28,7 @@ export type TFormValues = {
 const LoginForm: React.FC = () => {
     const router = useRouter();
 
-    const { register, handleSubmit, formState: { errors, isValid } } = useForm<TFormValues>({
+    const { register, handleSubmit, control, formState: { errors, isValid } } = useForm<TFormValues>({
         resolver: async (data) => {
             try {
                 const values = await schema.validateAsync(data, { abortEarly: false });
@@ -78,17 +78,19 @@ const LoginForm: React.FC = () => {
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
             <InputField
                 required
+                control={control}
                 type='email'
                 error={errors.email?.message}
                 placeholder='Email'
-                {...register("email")}
+                name='email'
             />
             <InputField
                 required
+                control={control}
                 type='password'
                 placeholder='Password'
                 error={errors.password?.message}
-                {...register("password")}
+                name='password'
             />
             <div className={styles.form__submit}>
                 <Button

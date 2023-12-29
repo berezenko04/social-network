@@ -2,7 +2,8 @@
 
 .header {
     padding: 0 16px 16px 0;
-    position: relative;
+    position: sticky;
+    top: 0;
     width: 100%;
     height: 100vh;
 
@@ -30,65 +31,5 @@
     &__post {
         margin-top: 8px;
         padding-right: 24px;
-    }
-
-    &__profile {
-        padding: 12px;
-        transition: all .2s ease-in;
-        width: 100%;
-        user-select: none;
-        // position: fixed;
-        // max-width: 300px;
-        // width: 100%;
-        // bottom: 16px;
-
-        &__wrapper {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            position: relative;
-        }
-
-        &:hover {
-            background-color: rgba($grey-50, 0.1);
-            border-radius: 999px;
-        }
-
-        &__avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 100%;
-            overflow: hidden;
-            border: 1px solid $grey-500;
-        }
-
-        &__details {
-            position: absolute;
-            top: 50%;
-            transform: translate(0, -50%);
-            right: 12px;
-        }
-
-        &__info {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 4px;
-
-
-            &__name,
-            &__username {
-                font-size: 16px;
-            }
-
-            &__name {
-                font-weight: 600;
-                color: $white;
-            }
-
-            &__username {
-                color: $grey-500;
-            }
-        }
     }
 }

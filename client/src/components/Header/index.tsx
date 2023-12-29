@@ -1,13 +1,17 @@
-//styles
 import Link from 'next/link';
+import Image from 'next/image';
+
+//styles
 import styles from './Header.module.scss'
 
 //components
 import NavigationLink from '@/components/NavigationLink'
-import Image from 'next/image';
 import Button from '../UI/Button';
+import UserCard from '../UserCard';
+
 
 const Header: React.FC = () => {
+
     const navigation = [
         { name: 'Home', iconSource: 'home', href: '/home' },
         { name: 'Explore', iconSource: 'search', href: '/explore' },
@@ -48,34 +52,7 @@ const Header: React.FC = () => {
                         </Button>
                     </div>
                 </nav>
-                <button className={styles.header__profile}>
-                    <div className={styles.header__profile__wrapper}>
-                        <div className={styles.header__profile__avatar}>
-                            <Image
-                                alt=''
-                                src={''}
-                                width={40}
-                                height={40}
-                            />
-                        </div>
-                        <div className={styles.header__profile__info}>
-                            <span className={styles.header__profile__info__name}>
-                                Roman
-                            </span>
-                            <span className={styles.header__profile__info__username}>
-                                @luxurypluxury
-                            </span>
-                        </div>
-                        <div className={styles.header__profile__details}>
-                            <Image
-                                alt=''
-                                src={'/icons/more.svg'}
-                                width={24}
-                                height={24}
-                            />
-                        </div>
-                    </div>
-                </button>
+                <UserCard />
             </div>
         </header>
     )

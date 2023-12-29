@@ -21,6 +21,9 @@ import { getMonths } from '@/utils/getMonts'
 //API
 import { signUp } from '@/API/authService';
 
+//types
+import { TFormErrors } from '@/@types/type';
+
 
 type TFormValues = {
     name: string
@@ -31,33 +34,35 @@ type TFormValues = {
     year: string
 };
 
-export type TFormErrors = Record<string, { message: string }>;
+
 
 const RegisterForm: React.FC = () => {
     const router = useRouter();
 
-    const { register, handleSubmit, setValue, trigger, formState: { errors, isValid } } = useForm<TFormValues>({
-        resolver: async (data) => {
-            try {
-                const values = await schema.validateAsync(data, { abortEarly: false });
-                return {
-                    values,
-                    errors: {},
-                };
-            } catch (error: any) {
-                return {
-                    values: {},
-                    errors: error.details.reduce((acc: TFormErrors, { path, message }:
-                        { path: string[] | string, message: string }) => {
-                        const fieldName = Array.isArray(path) ? path[0] : path as keyof TFormValues;
-                        acc[fieldName] = { message };
-                        return acc;
-                    }, {} as TFormErrors),
-                };
-            }
-        },
-        mode: 'onChange'
-    });
+    const {
+        register, handleSubmit, setValue,
+        trigger, control, formState: { errors, isValid } } = useForm<TFormValues>({
+            resolver: async (data) => {
+                try {
+                    const values = await schema.validateAsync(data, { abortEarly: false });
+                    return {
+                        values,
+                        errors: {},
+                    };
+                } catch (error: any) {
+                    return {
+                        values: {},
+                        errors: error.details.reduce((acc: TFormErrors, { path, message }:
+                            { path: string[] | string, message: string }) => {
+                            const fieldName = Array.isArray(path) ? path[0] : path as keyof TFormValues;
+                            acc[fieldName] = { message };
+                            return acc;
+                        }, {} as TFormErrors),
+                    };
+                }
+            },
+            mode: 'onChange'
+        });
 
     const schema = Joi.object({
         name: Joi.string().required().min(5).regex(/[a-zA-Zа-яА-Я]+ [a-zA-Zа-яА-Я]+/).messages({
@@ -99,29 +104,32 @@ const RegisterForm: React.FC = () => {
     return (
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
             <InputField
+                control={control}
                 required
                 type='text'
+                name='name'
                 counter
                 error={errors.name?.message}
                 maxLength={32}
-                placeholder='Full Name'
-                {...register("name")}
+                placeholder='Name'
             />
             <InputField
+                control={control}
                 required
+                name='email'
                 type='email'
                 error={errors.email?.message}
                 placeholder='Email'
-                {...register("email")}
             />
             <InputField
+                control={control}
                 required
                 type='password'
                 counter
+                name='password'
                 maxLength={32}
                 placeholder='Password'
                 error={errors.password?.message}
-                {...register("password")}
             />
             <div className={styles.form__selects}>
                 <Select
