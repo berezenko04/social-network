@@ -9,6 +9,9 @@ import styles from './UserCard.module.scss'
 //redux
 import { userDataSelector } from "@/redux/slices/user/selectors";
 
+//icons
+import MoreIcon from '@/assets/icons/more.svg'
+
 
 
 const UserCard: React.FC = () => {
@@ -36,12 +39,7 @@ const UserCard: React.FC = () => {
                             </span>
                         </div>
                         <div className={styles.card__details}>
-                            <Image
-                                alt=''
-                                src={'/icons/more.svg'}
-                                width={24}
-                                height={24}
-                            />
+                            <MoreIcon />
                         </div>
                     </div>
                 </button>

@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import Image from 'next/image'
 
 //styles
 import styles from './Page.module.scss'
@@ -8,6 +7,9 @@ import styles from './Page.module.scss'
 import Button from '@/components/UI/Button'
 import AuthLayout from '@/components/layouts/AuthLayout'
 import AuthComponent from '@/components/AuthComponent'
+
+//icons
+import GoogleIcon from '@/assets/icons/google.svg'
 
 
 export default function Home() {
@@ -19,12 +21,7 @@ export default function Home() {
           <h2>Join today</h2>
           <div className={styles.homepage__form__buttons}>
             <Button variant='secondary' size='sm'>
-              <Image
-                src={'/icons/logos/google.svg'}
-                alt=''
-                width={20}
-                height={20}
-              />
+              <GoogleIcon />
               Sign up with Google
             </Button>
             <div className={styles.separator}>

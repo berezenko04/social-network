@@ -3,13 +3,16 @@
 import { ChangeEvent, useState } from 'react';
 import Image from 'next/image';
 import { useSelector } from 'react-redux';
+import { useController } from 'react-hook-form';
 
 //styles
 import styles from './UploadAvatar.module.scss'
 
 //redux
 import { userDataSelector } from '@/redux/slices/user/selectors';
-import { useController } from 'react-hook-form';
+
+//icons
+import Photo from '@/assets/icons/photo.svg'
 
 
 interface IUploadAvatar {
@@ -67,12 +70,7 @@ const UploadAvatar: React.FC<IUploadAvatar> = ({ name, control, defaultValue }) 
                                 type='file'
                                 ref={ref}
                             />
-                            <Image
-                                src={'/icons/photo.svg'}
-                                width={24}
-                                height={24}
-                                alt=''
-                            />
+                            <Photo />
                         </label>
                     </>
                 }

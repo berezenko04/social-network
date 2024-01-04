@@ -1,8 +1,20 @@
-import React from 'react'
+//styles
+import styles from './Sidebar.module.scss'
+
+//components
+import SearchBar from '../SearchBar'
+import SidebarTags from '../SidebarTags'
+
 
 const Sidebar: React.FC = () => {
+
     return (
-        <div>Sidebar</div>
+        <div className={styles.sidebar}>
+            <div className={styles.sidebar__wrapper}>
+                <SearchBar />
+                <SidebarTags />
+            </div>
+        </div>
     )
 }
 

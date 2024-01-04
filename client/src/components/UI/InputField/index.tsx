@@ -1,7 +1,7 @@
 'use client';
 
 import { ChangeEvent, Fragment, useState } from 'react'
-import { useController, Control } from 'react-hook-form';
+import { useController } from 'react-hook-form';
 import cn from 'classnames'
 
 //styles

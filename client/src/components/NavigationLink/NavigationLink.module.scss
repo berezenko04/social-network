@@ -17,11 +17,20 @@
             color: $white;
             line-height: 24px;
         }
+
+        svg {
+            width: 32px;
+            height: 32px;
+        }
     }
 
     &__active {
         span {
             font-weight: 700;
+        }
+
+        svg path {
+            fill: $white;
         }
     }
 

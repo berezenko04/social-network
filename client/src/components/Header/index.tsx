@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import Image from 'next/image';
 
 //styles
 import styles from './Header.module.scss'
@@ -9,17 +8,25 @@ import NavigationLink from '@/components/NavigationLink'
 import Button from '../UI/Button';
 import UserCard from '../UserCard';
 
+//icons
+import Logo from '@/assets/icons/logo.svg'
+import HomeIcon from '@/assets/icons/home.svg'
+import SearchIcon from '@/assets/icons/search.svg'
+import BellIcon from '@/assets/icons/bell.svg'
+import MessageIcon from '@/assets/icons/message.svg'
+import BookmarkIcon from '@/assets/icons/bookmark.svg'
+import UserIcon from '@/assets/icons/user.svg'
+
 
 const Header: React.FC = () => {
 
     const navigation = [
-        { name: 'Home', iconSource: 'home', href: '/home' },
-        { name: 'Explore', iconSource: 'search', href: '/explore' },
-        { name: 'Notifications', iconSource: 'bell', href: '/notifications' },
-        { name: 'Messages', iconSource: 'message', href: '/messages' },
-        { name: 'Bookmarks', iconSource: 'bookmark', href: '/bookmarks' },
-        { name: 'Profile', iconSource: 'user', href: '/profile' },
-
+        { name: 'Home', icon: <HomeIcon />, href: '/home' },
+        { name: 'Explore', icon: <SearchIcon />, href: '/explore' },
+        { name: 'Notifications', icon: <BellIcon />, href: '/notifications' },
+        { name: 'Messages', icon: <MessageIcon />, href: '/messages' },
+        { name: 'Bookmarks', icon: <BookmarkIcon />, href: '/bookmarks' },
+        { name: 'Profile', icon: <UserIcon />, href: '/profile' },
     ];
 
     return (
@@ -30,12 +37,7 @@ const Header: React.FC = () => {
                         href={'/home'}
                         className={styles.header__navigation__logo}
                     >
-                        <Image
-                            src={'/icons/logo.svg'}
-                            width={32}
-                            height={32}
-                            alt='logo'
-                        />
+                        <Logo />
                     </Link>
                     {navigation.map((item, index) => (
                         <NavigationLink

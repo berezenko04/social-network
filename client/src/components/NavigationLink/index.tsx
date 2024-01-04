@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link'
-import Image from 'next/image'
 import cn from 'classnames'
 import { usePathname } from 'next/navigation'
 
@@ -11,11 +10,11 @@ import styles from './NavigationLink.module.scss'
 
 interface INavigationLinkProps {
     href: string,
-    iconSource: string,
+    icon: React.ReactNode,
     name: string
 }
 
-const NavigationLink: React.FC<INavigationLinkProps> = ({ href, iconSource, name }) => {
+const NavigationLink: React.FC<INavigationLinkProps> = ({ href, icon, name }) => {
     const currentPath = usePathname();
 
     return (
@@ -24,12 +23,7 @@ const NavigationLink: React.FC<INavigationLinkProps> = ({ href, iconSource, name
             className={cn(styles.link, currentPath === `/${name.toLowerCase()}` ? styles.link__active : '')}
         >
             <div className={styles.link__content}>
-                <Image
-                    width={32}
-                    height={32}
-                    alt=''
-                    src={`/icons/${iconSource}.svg`}
-                />
+                {icon}
                 <span>{name}</span>
             </div>
         </Link>

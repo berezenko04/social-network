@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image'
 import { useEffect } from 'react';
 import { ToastContainer } from 'react-toastify'
 import { usePathname, useRouter } from 'next/navigation';
@@ -9,6 +8,9 @@ import Cookies from 'js-cookie'
 //styles
 import styles from './AuthLayout.module.scss'
 import 'react-toastify/dist/ReactToastify.css';
+
+//icons
+import Logo from '@/assets/icons/logo.svg'
 
 
 interface IAuthLayoutProps {
@@ -29,12 +31,7 @@ const AuthLayout: React.FC<IAuthLayoutProps> = ({ children }) => {
         <main className={styles.layout}>
             <div className={styles.layout__wrapper}>
                 <div className={styles.layout__logo}>
-                    <Image
-                        src={'/icons/logo.svg'}
-                        alt='logo'
-                        width={32}
-                        height={32}
-                    />
+                    <Logo />
                 </div>
                 <div className={styles.layout__form}>
                     <div className={styles.layout__form__wrapper}>
