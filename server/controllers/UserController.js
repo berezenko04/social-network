@@ -19,11 +19,14 @@ export const register = async (req, res) => {
         const salt = await bcrypt.genSalt(10);
         const hash = await bcrypt.hash(password, salt);
 
+        const username = await generateUniqueUsername(req.body.name);
+
         const doc = new UserModel({
             name: req.body.name,
             birthDate: req.body.birthDate,
             email: req.body.email,
             passwordHash: hash,
+            username
         });
 
         const user = await doc.save();
@@ -166,4 +169,22 @@ export const updateInfo = async (req, res) => {
         console.log(err);
         res.status(500).json({ message: "Server error" });
     }
+}
+
+async function generateUniqueUsername(name) {
+    let baseUsername = name.replace(/\s+/g, '');
+    let username = baseUsername;
+    let counter = 1;
+
+    while (!(await isUniqueUsername(username))) {
+        username = `${baseUsername}${counter}`;
+        counter++;
+    }
+
+    return username;
+}
+
+async function isUniqueUsername(username) {
+    const result = await UserModel.findOne({ username: username });
+    return !result;
 }

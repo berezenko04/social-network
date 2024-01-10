@@ -39,7 +39,7 @@ const InputField: React.FC<IInputFieldProps> = ({
     } = useController({
         name,
         control,
-        defaultValue,
+        defaultValue, 
     });
 
     const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {

@@ -1,5 +1,6 @@
 //styles
 import styles from './PrimaryLayout.module.scss'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 //components
 import Sidebar from "@/components/Sidebar"

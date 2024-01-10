@@ -39,12 +39,15 @@ const Header: React.FC = () => {
                     >
                         <Logo />
                     </Link>
-                    {navigation.map((item, index) => (
-                        <NavigationLink
-                            key={index}
-                            {...item}
-                        />
-                    ))}
+                    <ul className={styles.header__navigation__menu}>
+                        {navigation.map((item, index) => (
+                            <li key={index}>
+                                <NavigationLink
+                                    {...item}
+                                />
+                            </li>
+                        ))}
+                    </ul>
                     <div className={styles.header__post}>
                         <Button
                             variant='primary'

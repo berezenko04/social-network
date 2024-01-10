@@ -1,0 +1,67 @@
+@import '@/scss/variables.scss';
+
+.createPost {
+    padding: 8px 16px;
+    border-bottom: 1px solid $grey-800;
+
+    &__wrapper {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    &__avatar {
+        padding-top: 12px;
+    }
+
+    &__main {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+
+        .divider {
+            height: 1px;
+            width: 100%;
+            background-color: $grey-800;
+            visibility: hidden;
+            transition: visibility .1s ease-in;
+
+            &__focused {
+                visibility: visible;
+            }
+        }
+
+        &__postContent {
+            width: 100%;
+            color: $white;
+            font-size: 20px;
+            line-height: 28px;
+            padding: 16px 0;
+        }
+
+        &__footer {
+            display: flex;
+            align-items: stretch;
+            justify-content: space-between;
+            gap: 24px;
+            padding-top: 8px;
+
+            &__buttons {
+                display: flex;
+                align-items: center;
+            }
+
+            &__submit {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+
+                .progressBar {
+                    width: 24px;
+                    height: 24px;
+                }
+            }
+        }
+    }
+}

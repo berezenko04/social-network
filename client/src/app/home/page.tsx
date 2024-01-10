@@ -1,18 +1,16 @@
 import { NextPage } from 'next'
 
+import 'react-loading-skeleton/dist/skeleton.css'
+
 //components
 import PrimaryLayout from '@/components/layouts/PrimaryLayout'
+import CreatePost from '@/components/CreatePost'
 
 
 const Home: NextPage = () => {
     return (
         <PrimaryLayout>
-            <>
-                {[...Array(100)].map((_, idx) => (
-                    <h1 key={idx}>qq</h1>
-                ))}
-            </>
-
+            <CreatePost />
         </PrimaryLayout>
     )
 }

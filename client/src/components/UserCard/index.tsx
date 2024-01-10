@@ -1,7 +1,7 @@
 'use client';
 
 import { useSelector } from "react-redux";
-import Image from "next/image";
+import Skeleton from "react-loading-skeleton";
 
 //styles
 import styles from './UserCard.module.scss'
@@ -11,7 +11,7 @@ import { userDataSelector } from "@/redux/slices/user/selectors";
 
 //icons
 import MoreIcon from '@/assets/icons/more.svg'
-
+import Avatar from "../UI/Avatar";
 
 
 const UserCard: React.FC = () => {
@@ -19,31 +19,22 @@ const UserCard: React.FC = () => {
 
     return (
         <>
-            {user &&
-                <button className={styles.card}>
-                    <div className={styles.card__wrapper}>
-                        <div className={styles.card__avatar}>
-                            <Image
-                                alt='avatar'
-                                src={user.avatarUrl}
-                                width={40}
-                                height={40}
-                            />
-                        </div>
-                        <div className={styles.card__info}>
-                            <span className={styles.card__info__name}>
-                                {user.name}
-                            </span>
-                            <span className={styles.card__info__username}>
-                                @{user.username}
-                            </span>
-                        </div>
-                        <div className={styles.card__details}>
-                            <MoreIcon />
-                        </div>
+            <button className={styles.card}>
+                <div className={styles.card__wrapper}>
+                    <Avatar size="sm" imgSrc={user?.avatarUrl} />
+                    <div className={styles.card__info}>
+                        <span className={styles.card__info__name}>
+                            {user ? user.name : <Skeleton width={150} height={16} />}
+                        </span>
+                        <span className={styles.card__info__username}>
+                            {user ? `@${user.username}` : <Skeleton width={100} />}
+                        </span>
                     </div>
-                </button>
-            }
+                    <div className={styles.card__details}>
+                        <MoreIcon />
+                    </div>
+                </div>
+            </button>
         </>
     )
 }

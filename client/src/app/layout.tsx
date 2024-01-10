@@ -9,6 +9,7 @@ import ReduxProvider from '@/redux/provider';
 
 //components
 import CheckAuth from '@/components/ClientSide/CheckAuth';
+import { SkeletonTheme } from 'react-loading-skeleton';
 
 const montserrat = Montserrat({ subsets: ['latin'] })
 
@@ -26,8 +27,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={montserrat.className}>
         <ReduxProvider>
-          {children}
-          <CheckAuth />
+          <SkeletonTheme baseColor="hsl(213, 4%, 46%)" highlightColor="hsl(0, 0%, 90%)">
+            {children}
+            <CheckAuth />
+          </SkeletonTheme>
         </ReduxProvider>
       </body>
     </html>
