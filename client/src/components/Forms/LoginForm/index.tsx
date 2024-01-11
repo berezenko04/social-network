@@ -19,6 +19,10 @@ import { TFormErrors } from '@/@types/type';
 //API
 import { login } from '@/API/authService';
 
+//redux
+import { useAppDispatch } from '@/redux/store';
+import { fetchAuthMe } from '@/redux/slices/user/asyncActions';
+
 
 export type TFormValues = {
     email: string,
@@ -27,8 +31,9 @@ export type TFormValues = {
 
 const LoginForm: React.FC = () => {
     const router = useRouter();
+    const dispatch = useAppDispatch();
 
-    const { register, handleSubmit, control, formState: { errors, isValid } } = useForm<TFormValues>({
+    const { handleSubmit, control, formState: { errors, isValid } } = useForm<TFormValues>({
         resolver: async (data) => {
             try {
                 const values = await schema.validateAsync(data, { abortEarly: false });
@@ -66,6 +71,7 @@ const LoginForm: React.FC = () => {
             if ('token' in response) {
                 Cookies.set('token', response.token as string, { expires: 7, path: '/' });
             }
+            await dispatch(fetchAuthMe());
             router.push('/home');
         } catch (err: any) {
             if (err.response && err.response.status == 401) {

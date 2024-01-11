@@ -1,3 +1,9 @@
+'use client';
+
+import { useEffect } from 'react'
+import Cookies from 'js-cookie'
+import { useRouter } from 'next/navigation'
+
 //styles
 import styles from './PrimaryLayout.module.scss'
 import 'react-loading-skeleton/dist/skeleton.css'
@@ -12,6 +18,11 @@ interface IPrimaryLayoutProps {
 
 
 const PrimaryLayout: React.FC<IPrimaryLayoutProps> = ({ children }) => {
+    const router = useRouter();
+
+    useEffect(() => {
+        !Cookies.get('token') && router.push('/login');
+    }, [])
 
     return (
         <div className={styles.layout}>

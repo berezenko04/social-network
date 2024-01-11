@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import Cookies from 'js-cookie';
 
 //asyncActions
 import { fetchAuthMe } from './asyncActions';
@@ -16,7 +17,12 @@ const initialState: IUserSliceState = {
 export const userSlice = createSlice({
     name: 'user',
     initialState,
-    reducers: {},
+    reducers: {
+        logout(state) {
+            Cookies.remove('token');
+            state.data = null;
+        }
+    },
     extraReducers: (builder) => {
         builder.addCase(fetchAuthMe.pending, (state) => {
             state.data = null;
@@ -34,5 +40,7 @@ export const userSlice = createSlice({
         })
     }
 });
+
+export const { logout } = userSlice.actions;
 
 export default userSlice.reducer;

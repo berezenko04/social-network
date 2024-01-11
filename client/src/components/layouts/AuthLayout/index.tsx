@@ -2,8 +2,8 @@
 
 import { useEffect } from 'react';
 import { ToastContainer } from 'react-toastify'
-import { usePathname, useRouter } from 'next/navigation';
-import Cookies from 'js-cookie'
+import { useRouter } from 'next/navigation';
+import Cookies from 'js-cookie';
 
 //styles
 import styles from './AuthLayout.module.scss'
@@ -19,12 +19,9 @@ interface IAuthLayoutProps {
 
 const AuthLayout: React.FC<IAuthLayoutProps> = ({ children }) => {
     const router = useRouter();
-    const pathname = usePathname();
 
     useEffect(() => {
-        if (Cookies.get('token') && pathname !== '/login/username') {
-            router.push('/home');
-        }
+        Cookies.get('token') && router.push('/home');
     }, []);
 
     return (
