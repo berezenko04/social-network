@@ -3,10 +3,12 @@ import { useDispatch } from "react-redux";
 
 //slices
 import user from './slices/user/slice'
+import posts from './slices/posts/slice'
 
 export const store = configureStore({
     reducer: {
-        user
+        user,
+        posts
     }
 })
 

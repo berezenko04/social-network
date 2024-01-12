@@ -1,11 +1,11 @@
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
-import crypto from 'crypto'
-import fs from 'fs'
-import sharp from 'sharp'
 
 //models
 import UserModel from '../schemas/user.js'
+
+//utils
+import { generateUniqueUsername } from '../utils/generateUniqueUsername.js'
 
 export const register = async (req, res) => {
     try {
@@ -114,77 +114,3 @@ export const getMe = async (req, res) => {
         });
     }
 };
-
-export const updateInfo = async (req, res) => {
-    try {
-        const updatedData = req.body;
-        const avatar = req.body.avatar;
-
-        const user = await UserModel.findById(req.userId);
-
-        if (!user) {
-            return res.status(404).json({ message: "User not found" });
-        }
-
-        if (avatar.path) {
-            try {
-                const tempFilePath = avatar.path;
-                const originalName = avatar.originalname;
-
-                const hash = crypto
-                    .createHash("md5")
-                    .update(originalName + Date.now())
-                    .digest("hex");
-                const destinationPath = `uploads/${hash}.webp`;
-
-                await sharp(tempFilePath)
-                    .resize(200, 200, { fit: "inside", })
-                    .toFile(destinationPath, (err, info) => {
-                        if (err) {
-                            console.error(`Error while resizing image: ${err}`);
-                        } else {
-                            fs.unlink(tempFilePath, (error) => {
-                                if (error) {
-                                    console.error(`Error while deleting temporary file: ${error}`);
-                                }
-                            });
-                        }
-                    });
-            } catch (error) {
-                console.error(error);
-                res.status(500).json({ error: "Error while uploading image" });
-            }
-        }
-
-        Object.keys(updatedData).forEach((key) => {
-            if (user[key] !== updatedData[key]) {
-                user[key] = updatedData[key];
-            }
-        });
-
-        const updatedUser = await user.save();
-
-        res.status(200).json(updatedUser);
-    } catch (err) {
-        console.log(err);
-        res.status(500).json({ message: "Server error" });
-    }
-}
-
-async function generateUniqueUsername(name) {
-    let baseUsername = name.replace(/\s+/g, '');
-    let username = baseUsername;
-    let counter = 1;
-
-    while (!(await isUniqueUsername(username))) {
-        username = `${baseUsername}${counter}`;
-        counter++;
-    }
-
-    return username;
-}
-
-async function isUniqueUsername(username) {
-    const result = await UserModel.findOne({ username: username });
-    return !result;
-}

@@ -6,7 +6,7 @@ import bodyParser from 'body-parser'
 
 //routes
 import AuthRoutes from './routes/auth.js'
-import UserRoutes from './routes/user.js'
+import PostsRoutes from './routes/post.js'
 
 dotenv.config();
 
@@ -22,11 +22,13 @@ mongoose
 const app = express();
 
 app.use(express.json());
-app.use(cors());
 app.use(bodyParser.json());
+app.use(cors());
+
 app.use("/uploads", express.static("uploads"));
+
 app.use(`${SERVER_PREFIX}`, AuthRoutes);
-app.use(`${SERVER_PREFIX}/user`, UserRoutes);
+app.use(`${SERVER_PREFIX}/posts`, PostsRoutes);
 
 app.listen(PORT, (err) => {
     if (err) {
