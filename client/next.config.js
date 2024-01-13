@@ -13,8 +13,8 @@ const nextConfig = {
     images: {
         remotePatterns: [
             {
-                hostname: 'localhost',
-                pathname: '/uploads/**',
+                hostname: '**',
+                // pathname: '/uploads/**',
             }
         ]
     },

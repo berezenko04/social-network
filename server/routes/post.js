@@ -20,6 +20,6 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 router.post("/create", upload.array('images[]'), checkAuth, PostController.createPost);
-router.post("/all", PostController.getPosts);
+router.get("/get", PostController.getPosts);
 
 export default router;

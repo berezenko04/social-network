@@ -28,7 +28,6 @@ import RemoveIcon from '@/assets/icons/close.svg'
 import { createPost } from '@/API/postsService';
 
 
-
 const CreatePost: React.FC = () => {
     const user = useSelector(userDataSelector);
     const inputRef = useRef<null | HTMLInputElement>(null);

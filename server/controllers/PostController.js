@@ -42,7 +42,7 @@ export const createPost = async (req, res) => {
                 });
             });
 
-            const imageUrl = `${process.env.SERVER_PATH}/${destinationPath}`;
+            const imageUrl = `http://${process.env.SERVER_PATH}/${destinationPath}`;
             attachedUrls.push(imageUrl);
         }
 
@@ -65,9 +65,14 @@ export const createPost = async (req, res) => {
     }
 }
 
-export const getPosts = async (_, res) => {
+export const getPosts = async (req, res) => {
     try {
-        const posts = await PostModel.find();
+        const page = parseInt(req.query.page) || 1;
+        const pageSize = 10;
+
+        const skip = (page - 1) * pageSize;
+        const posts = await PostModel.find().skip(skip).limit(pageSize);
+
         res.status(200).json(posts);
     } catch (err) {
         console.error(err);

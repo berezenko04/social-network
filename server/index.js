@@ -7,6 +7,7 @@ import bodyParser from 'body-parser'
 //routes
 import AuthRoutes from './routes/auth.js'
 import PostsRoutes from './routes/post.js'
+import UserRoutes from './routes/user.js'
 
 dotenv.config();
 
@@ -25,10 +26,11 @@ app.use(express.json());
 app.use(bodyParser.json());
 app.use(cors());
 
-app.use("/uploads", express.static("uploads"));
+app.use("/uploads", express.static("uploads")); 
 
 app.use(`${SERVER_PREFIX}`, AuthRoutes);
 app.use(`${SERVER_PREFIX}/posts`, PostsRoutes);
+app.use(`${SERVER_PREFIX}/user`, UserRoutes);
 
 app.listen(PORT, (err) => {
     if (err) {

@@ -8,7 +8,7 @@ export const createPost = async (postData: FormData) => {
     });
 }
 
-export const getPosts = async () => {
-    const { data } = await axios.get('/posts/all');
+export const getPosts = async (page: number) => {
+    const { data } = await axios.get(`/posts/get?page=${page}`);
     return data;
 }
