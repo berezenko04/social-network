@@ -1,28 +1,40 @@
 @import '@/scss/variables.scss';
 
 .button {
-    width: 32px;
-    height: 32px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     transition: all .2s ease-in;
     position: relative;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    color: $grey-500;
+
+    span {
+        width: 32px;
+        height: 32px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        svg {
+            width: 20px;
+            height: 20px;
+
+            path {
+                transition: all .2s ease-in;
+            }
+        }
+    }
 
     &:disabled {
         svg path {
             fill: rgba($primary-500, 0.5);
         }
+
+        &:hover {
+            background-color: transparent;
+        }
     }
 
-    &:disabled:hover {
-        background-color: transparent;
-    }
-
-    svg {
-        width: 20px;
-        height: 20px;
-    }
 
     &__primary {
         svg path {
@@ -32,6 +44,52 @@
         &:hover {
             border-radius: 100%;
             background-color: rgba($primary-500, 0.15);
+        }
+    }
+
+    &__red,
+    &__blue {
+        svg path {
+            fill: $grey-400;
+        }
+
+        span::after {
+            content: '';
+            width: 32px;
+            height: 32px;
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translate(0, -50%);
+            border-radius: 100%;
+        }
+    }
+
+    &__red {
+        &:hover {
+            color: $error-500;
+
+            span::after {
+                background-color: rgba($error-500, 0.15);
+            }
+
+            svg path {
+                fill: $error-500;
+            }
+        }
+    }
+
+    &__blue {
+        &:hover {
+            color: $primary-500;
+
+            span::after {
+                background-color: rgba($primary-500, 0.15);
+            }
+
+            svg path {
+                fill: $primary-500;
+            }
         }
     }
 }

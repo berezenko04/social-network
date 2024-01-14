@@ -8,6 +8,7 @@ export interface IPostState {
 export type TPost = {
     content: string,
     attached: string[],
+    createdAt: Date
     user: string,
     likes: number,
     views: number

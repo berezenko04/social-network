@@ -41,6 +41,9 @@
         &__name {
             font-weight: 600;
             color: $white;
+            display: flex;
+            align-items: center;
+            gap: 4px;
         }
 
         &__username {

@@ -95,6 +95,19 @@
             justify-content: space-between;
             gap: 24px;
             padding-top: 8px;
+            position: relative;
+
+            .picker {
+                position: absolute;
+                top: 64px;
+                left: 0;
+
+                
+            }
+
+            .em-emoji-picker{
+                
+            }
 
             &__buttons {
                 display: flex;

@@ -18,6 +18,7 @@ import { logout } from "@/redux/slices/user/slice";
 
 //icons
 import MoreIcon from '@/assets/icons/more.svg'
+import VerifiedIcon from '@/assets/icons/verified.svg'
 
 
 const UserCard: React.FC = () => {
@@ -58,6 +59,7 @@ const UserCard: React.FC = () => {
                 <div className={styles.card__info}>
                     <span className={styles.card__info__name}>
                         {user ? user.name : <Skeleton width={150} height={16} />}
+                        <VerifiedIcon />
                     </span>
                     <span className={styles.card__info__username}>
                         {user ? `@${user.username}` : <Skeleton width={100} />}

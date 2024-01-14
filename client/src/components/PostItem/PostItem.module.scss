@@ -68,5 +68,25 @@
                 }
             }
         }
+
+        &__footer {
+            margin-top: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+
+            &__actions {
+                display: flex;
+                align-items: center;
+                gap: 16px;
+            }
+
+            &__share {
+                display: flex;
+                align-items: center;
+                gap: 0;
+            }
+        }
     }
 }

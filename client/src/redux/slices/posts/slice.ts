@@ -1,7 +1,7 @@
 import { Status } from "@/@types/type";
 import { IPostState, TPost } from "./types";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { fetchPosts } from "./asyncActions";
+import { createPost, fetchPosts } from "./asyncActions";
 
 
 const initialState: IPostState = {
@@ -28,6 +28,10 @@ export const postSlice = createSlice({
         builder.addCase(fetchPosts.rejected, (state) => {
             state.data = null;
             state.status = Status.ERROR;
+        })
+
+        builder.addCase(createPost.fulfilled, (state, action: PayloadAction<TPost>) => {
+            state.data?.unshift(action.payload);
         })
     }
 })

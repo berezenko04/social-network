@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link';
 import Skeleton from 'react-loading-skeleton';
+import Image from 'next/image';
 
 //styles
 import styles from './PostItem.module.scss'
@@ -15,13 +16,18 @@ import { getUser } from '@/API/userService';
 
 //components
 import Avatar from '../UI/Avatar';
+import IconButton from '../UI/IconButton';
 
 //utils
 import { formatDate } from '@/utils/formatDate';
 
 //icons
 import VerifiedIcon from '@/assets/icons/verified.svg'
-import Image from 'next/image';
+import LikeIcon from '@/assets/icons/like.svg'
+import ViewsIcon from '@/assets/icons/trends.svg'
+import BookmarkIcon from '@/assets/icons/bookmark.svg'
+import ShareIcon from '@/assets/icons/share.svg'
+
 
 interface IPostItemProps {
     user: string,
@@ -29,10 +35,10 @@ interface IPostItemProps {
     attached: string[],
     likes: number,
     views: number,
-    date: Date
+    createdAt: Date
 }
 
-const PostItem: React.FC<IPostItemProps> = ({ user, content, attached, likes, date, views }) => {
+const PostItem: React.FC<IPostItemProps> = ({ user, content, attached, likes, createdAt, views }) => {
     const [userData, setUserData] = useState<IUserData>();
     const [loading, setLoading] = useState(true);
 
@@ -43,8 +49,6 @@ const PostItem: React.FC<IPostItemProps> = ({ user, content, attached, likes, da
             setLoading(false);
         })();
     }, []);
-
-    console.log(attached);
 
     return (
         <>
@@ -60,7 +64,7 @@ const PostItem: React.FC<IPostItemProps> = ({ user, content, attached, likes, da
                                 </Link>
                                 <p>@{userData.username}</p>
                                 <span className={styles.divider} />
-                                <p>{formatDate(date)}</p>
+                                <p>{formatDate(createdAt)}</p>
                             </div>
                             <div className={styles.postItem__main__content}>
                                 <p className={styles.postItem__main__content__text}>
@@ -80,6 +84,30 @@ const PostItem: React.FC<IPostItemProps> = ({ user, content, attached, likes, da
                                             />
                                         </div>
                                     ))}
+                                </div>
+                            </div>
+                            <div className={styles.postItem__main__footer}>
+                                <div className={styles.postItem__main__footer__actions}>
+                                    <IconButton
+                                        variant='red'
+                                        icon={<LikeIcon />}
+                                        text={`${likes}`}
+                                    />
+                                    <IconButton
+                                        variant='blue'
+                                        icon={<ViewsIcon />}
+                                        text={`${views}`}
+                                    />
+                                </div>
+                                <div className={styles.postItem__main__footer__share}>
+                                    <IconButton
+                                        variant='blue'
+                                        icon={<BookmarkIcon />}
+                                    />
+                                    <IconButton
+                                        variant='blue'
+                                        icon={<ShareIcon />}
+                                    />
                                 </div>
                             </div>
                         </div>

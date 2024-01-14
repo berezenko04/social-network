@@ -7,6 +7,9 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import cn from 'classnames'
 import Image from 'next/image';
 import { toast } from 'react-toastify';
+import EmojiPicker from '@emoji-mart/react';
+import data from '@emoji-mart/data'
+import { useAppDispatch } from '@/redux/store';
 
 //styles
 import styles from './CreatePost.module.scss'
@@ -19,22 +22,27 @@ import IconButton from '../UI/IconButton';
 
 //redux
 import { userDataSelector } from '@/redux/slices/user/selectors'
+import { createPost } from '@/redux/slices/posts/asyncActions';
 
 //icons
 import PictureIcon from '@/assets/icons/picture.svg'
 import RemoveIcon from '@/assets/icons/close.svg'
+import EmojiIcon from '@/assets/icons/emoji.svg'
 
-//API
-import { createPost } from '@/API/postsService';
 
+type TEmojiIcon = {
+    native: string
+}
 
 const CreatePost: React.FC = () => {
     const user = useSelector(userDataSelector);
     const inputRef = useRef<null | HTMLInputElement>(null);
+    const dispatch = useAppDispatch();
     const maxLength = 300;
     const [fieldValue, setFieldValue] = useState<string>('');
     const [isFocused, setIsFocused] = useState<boolean>(false);
     const [images, setImages] = useState<File[]>([]);
+    const [isPickerOpened, setIsPickerOpened] = useState<boolean>(false);
 
     const handleInput = (e: ChangeEvent<HTMLTextAreaElement>) => {
         const inputValue = e.target.value;
@@ -77,13 +85,17 @@ const CreatePost: React.FC = () => {
                 formData.append(`images[]`, image);
             });
 
-            await createPost(formData);
+            await dispatch(createPost(formData));
 
             setFieldValue('');
             setImages([]);
         } catch (err) {
             toast.error('An error occurred while posting');
         }
+    }
+
+    const handleAddEmoji = (emoji: TEmojiIcon) => {
+        setFieldValue(prev => prev + emoji.native)
     }
 
     return (
@@ -149,6 +161,24 @@ const CreatePost: React.FC = () => {
                                     onChange={handleInputChange}
                                 />
                             </label>
+                            <IconButton
+                                variant='primary'
+                                onClick={() => setIsPickerOpened(prev => !prev)}
+                                icon={<EmojiIcon />}
+                                type='button'
+                            />
+                            {isPickerOpened &&
+                                <div className={styles.picker}>
+                                    <EmojiPicker
+                                        emojiSize={20}
+                                        emojiButtonSize={32}
+                                        data={data}
+                                        perLine={8}
+                                        onClickOutside={() => setIsPickerOpened(false)}
+                                        onEmojiSelect={handleAddEmoji}
+                                    />
+                                </div>
+                            }
                         </div>
                         <div className={styles.createPost__main__footer__submit}>
                             {fieldValue &&

@@ -54,9 +54,7 @@ export const createPost = async (req, res) => {
 
         await postItem.save();
 
-        res.status(200).json({
-            message: 'Post created succesfully'
-        });
+        res.status(200).json(postItem);
     } catch (err) {
         console.log(err);
         res.status(500).json({
@@ -71,7 +69,11 @@ export const getPosts = async (req, res) => {
         const pageSize = 10;
 
         const skip = (page - 1) * pageSize;
-        const posts = await PostModel.find().skip(skip).limit(pageSize);
+        const posts = await PostModel
+            .find()
+            .sort({ createdAt: -1 })
+            .skip(skip)
+            .limit(pageSize);
 
         res.status(200).json(posts);
     } catch (err) {
