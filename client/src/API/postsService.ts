@@ -14,3 +14,8 @@ export const getPosts = async (page: number) => {
     const { data } = await axios.get(`/posts/get?page=${page}`);
     return data;
 }
+
+export const getLikes = async (postId: string) => {
+    const { data } = await axios.get(`/posts/likes?postId=${postId}`);
+    return data;
+}

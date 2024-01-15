@@ -19,8 +19,8 @@ export const userSlice = createSlice({
     initialState,
     reducers: {
         logout(state) {
-            Cookies.remove('token');
             state.data = null;
+            Cookies.remove('token');
         }
     },
     extraReducers: (builder) => {

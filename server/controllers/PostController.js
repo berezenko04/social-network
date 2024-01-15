@@ -6,6 +6,7 @@ import fs from 'fs'
 //schemas
 import PostModel from '../schemas/post.js'
 import UserModel from '../schemas/user.js'
+import LikesModel from '../schemas/likes.js'
 
 dotenv.config();
 
@@ -52,7 +53,12 @@ export const createPost = async (req, res) => {
             user: userId
         });
 
+        const likesItem = new LikesModel({
+            post: postItem.id
+        })
+
         await postItem.save();
+        await likesItem.save();
 
         res.status(200).json(postItem);
     } catch (err) {
@@ -73,11 +79,34 @@ export const getPosts = async (req, res) => {
             .find()
             .sort({ createdAt: -1 })
             .skip(skip)
-            .limit(pageSize);
+            .limit(pageSize * page);
 
-        res.status(200).json(posts);
+        const postsCount = await PostModel.countDocuments({});
+
+        res.status(200).json({
+            posts,
+            count: postsCount
+        });
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: "Server error" });
+    }
+}
+
+export const getPostLikes = async (req, res) => {
+    try {
+        const postId = req.body.postId;
+        const likes = await LikesModel.find({ post: postId });
+        const likesCount = await LikesModel.countDocuments({ post: postId });
+
+        res.status(200).json({
+            likes: likes,
+            count: likesCount
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({
+            message: "Server error"
+        })
     }
 }

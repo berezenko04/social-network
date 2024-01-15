@@ -16,7 +16,7 @@ import Select from '@/components/UI/Select'
 //utils
 import { getYears } from '@/utils/getYears'
 import { getDays } from '@/utils/getDays'
-import { getMonths } from '@/utils/getMonts'
+import { getMonths } from '@/utils/getMonths'
 
 //API
 import { signUp } from '@/API/authService';
@@ -33,7 +33,6 @@ type TFormValues = {
     month: string,
     year: string
 };
-
 
 
 const RegisterForm: React.FC = () => {
@@ -110,7 +109,7 @@ const RegisterForm: React.FC = () => {
                 name='name'
                 counter
                 error={errors.name?.message}
-                maxLength={32}
+                maxLength={16}
                 placeholder='Name'
             />
             <InputField

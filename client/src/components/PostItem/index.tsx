@@ -8,11 +8,9 @@ import Image from 'next/image';
 //styles
 import styles from './PostItem.module.scss'
 
-//redux
-import { IUserData } from '@/redux/slices/user/types';
-
 //API
 import { getUser } from '@/API/userService';
+import { getLikes } from '@/API/postsService';
 
 //components
 import Avatar from '../UI/Avatar';
@@ -28,34 +26,36 @@ import ViewsIcon from '@/assets/icons/trends.svg'
 import BookmarkIcon from '@/assets/icons/bookmark.svg'
 import ShareIcon from '@/assets/icons/share.svg'
 
+//redux
+import { TPost } from '@/redux/slices/posts/types';
+import { IUserData } from '@/redux/slices/user/types';
 
-interface IPostItemProps {
-    user: string,
-    content: string,
-    attached: string[],
-    likes: number,
-    views: number,
-    createdAt: Date
+
+type TLikes = {
+    count: number,
+    users: string[]
 }
 
-const PostItem: React.FC<IPostItemProps> = ({ user, content, attached, likes, createdAt, views }) => {
+
+const PostItem: React.FC<TPost> = ({ _id, user, content, attached, views, createdAt }) => {
     const [userData, setUserData] = useState<IUserData>();
-    const [loading, setLoading] = useState(true);
+    const [likes, setLikes] = useState<TLikes>();
 
     useEffect(() => {
         (async () => {
             const data = await getUser(user);
+            const dataLikes = await getLikes(_id);
+            setLikes(dataLikes);
             setUserData(data);
-            setLoading(false);
         })();
     }, []);
 
     return (
         <>
-            {(!loading && userData) &&
+            {(userData && likes) &&
                 <li className={styles.postItem} style={{ color: 'white' }}>
                     <div className={styles.postItem__wrapper}>
-                        <Avatar size='sm' imgSrc={userData.avatarUrl} />
+                        <Avatar size='sm' imgSrc={userData?.avatarUrl} />
                         <div className={styles.postItem__main}>
                             <div className={styles.postItem__main__head}>
                                 <Link href={`/${userData.name}`}>
@@ -70,28 +70,30 @@ const PostItem: React.FC<IPostItemProps> = ({ user, content, attached, likes, cr
                                 <p className={styles.postItem__main__content__text}>
                                     {content}
                                 </p>
-                                <div className={styles.postItem__main__content__attached}>
-                                    {attached.map((item, idx) => (
-                                        <div
-                                            className={styles.postItem__main__content__attached__item}
-                                            key={idx}
-                                        >
-                                            <Image
-                                                width={300}
-                                                height={240}
-                                                src={item}
-                                                alt=''
-                                            />
-                                        </div>
-                                    ))}
-                                </div>
+                                {!!attached.length &&
+                                    <div className={styles.postItem__main__content__attached}>
+                                        {attached.map((item, idx) => (
+                                            <div
+                                                className={styles.postItem__main__content__attached__item}
+                                                key={idx}
+                                            >
+                                                <Image
+                                                    width={300}
+                                                    height={240}
+                                                    src={item}
+                                                    alt=''
+                                                />
+                                            </div>
+                                        ))}
+                                    </div>
+                                }
                             </div>
                             <div className={styles.postItem__main__footer}>
                                 <div className={styles.postItem__main__footer__actions}>
                                     <IconButton
                                         variant='red'
                                         icon={<LikeIcon />}
-                                        text={`${likes}`}
+                                        text={`${likes.count}`}
                                     />
                                     <IconButton
                                         variant='blue'
