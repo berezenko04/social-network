@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const LikesSchema = new mongoose.Schema(
     {
-        likes: {
+        users: {
             type: Array,
             items: {
                 type: mongoose.Schema.Types.ObjectId,

@@ -10,8 +10,8 @@ export const createPost = async (postData: FormData) => {
     return data;
 }
 
-export const getPosts = async (page: number) => {
-    const { data } = await axios.get(`/posts/get?page=${page}`);
+export const getPosts = async () => {
+    const { data } = await axios.get(`/posts/get`);
     return data;
 }
 

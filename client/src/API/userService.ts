@@ -11,3 +11,8 @@ export const getUser = async (userId: string) => {
     const { data } = await axios.get(`/user/get?userId=${userId}`);
     return data;
 }
+
+export const getUsers = async (limit: number) => {
+    const { data } = await axios.get(`/user/all?limit=${limit}`);
+    return data;
+}

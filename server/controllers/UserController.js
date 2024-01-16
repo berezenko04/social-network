@@ -119,7 +119,7 @@ export const getUser = async (req, res) => {
     try {
         const user = await UserModel.findById(req.query.userId);
         if (!user) {
-            return res.status(404).json({ 
+            return res.status(404).json({
                 message: "User is not found",
             });
         }
@@ -132,5 +132,19 @@ export const getUser = async (req, res) => {
         res.status(500).json({
             message: "Failed to receive user",
         });
+    }
+}
+
+export const getUsers = async (req, res) => {
+    try {
+        const limit = parseInt(req.query.limit) || 6;
+        const users = await UserModel.aggregate([{ $sample: { size: limit } }]);
+
+        res.status(200).json(users);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({
+            message: 'Server error'
+        })
     }
 }

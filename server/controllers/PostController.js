@@ -71,15 +71,15 @@ export const createPost = async (req, res) => {
 
 export const getPosts = async (req, res) => {
     try {
-        const page = parseInt(req.query.page) || 1;
-        const pageSize = 10;
+        // const page = parseInt(req.query.page) || 1;
+        // const pageSize = 10;
 
-        const skip = (page - 1) * pageSize;
+        // const skip = (page - 1) * pageSize;
         const posts = await PostModel
             .find()
             .sort({ createdAt: -1 })
-            .skip(skip)
-            .limit(pageSize * page);
+        // .skip(skip)
+        // .limit(pageSize * page);
 
         const postsCount = await PostModel.countDocuments({});
 

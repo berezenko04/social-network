@@ -21,46 +21,54 @@ import PostSkeleton from '../Skeletons/PostSkeleton';
 const PostsList: React.FC = () => {
     const dispatch = useAppDispatch();
     const { data, count } = useSelector(postsSelector);
-    const [page, setPage] = useState(1);
-    const [posts, setPosts] = useState<TPost[]>([]);
-    const MAX_PER_PAGE = 10;
+    // const [page, setPage] = useState(1);
+    // const [posts, setPosts] = useState<TPost[]>([]);
+    // const MAX_PER_PAGE = 10;
 
-    const getPosts = async (pageNumber: number) => {
-        const response = await dispatch(fetchPosts(pageNumber));
-        const newPosts = response.payload.posts || [];
-        return newPosts;
-    }
+    // const getPosts = async (pageNumber: number) => {
+    //     const response = await dispatch(fetchPosts(pageNumber));
+    //     const newPosts = response.payload.posts || [];
+    //     return newPosts;
+    // }
 
     useEffect(() => {
+        // (async () => {
+        //     const newPosts = await getPosts(page);
+        //     setPosts(prev => [...prev, ...newPosts]);
+        // })();
         (async () => {
-            console.log('Fetch in state Posts');
-            const newPosts = await getPosts(page);
-            setPosts(prev => [...prev, ...newPosts]);
+            await dispatch(fetchPosts());
         })();
-    }, [page]);
+    }, []);
 
-    const fetchMorePosts = () => {
-        setPage(page + 1);
-    }
+    // const fetchMorePosts = () => {
+    //     setPage(page + 1);
+    // }
 
     return (
 
         <ul className={styles.list}>
-            {data &&
+            {/* {data ?
                 <InfiniteScroll
                     dataLength={posts.length}
                     next={fetchMorePosts}
                     hasMore={count > MAX_PER_PAGE * page}
                     loader={<p>Loading...</p>}
                 >
-                    {posts.map((post, idx) => (
-                        <PostItem {...post} key={idx} />
-                    ))}
+                    
                 </InfiniteScroll>
-                // :
-                // [...Array(6)].map((_, idx) => (
-                //     <PostSkeleton key={idx} />
-                // ))
+                :
+                [...Array(6)].map((_, idx) => (
+                    <PostSkeleton key={idx} />
+                ))
+            } */}
+            {data ? data.map((post, idx) => (
+                <PostItem {...post} key={idx} />
+            ))
+                :
+                [...Array(6)].map((_, idx) => (
+                    <PostSkeleton key={idx} />
+                ))
             }
         </ul>
     )

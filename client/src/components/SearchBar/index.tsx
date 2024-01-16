@@ -39,7 +39,7 @@ const SearchBar: React.FC = () => {
             }
             {isFocused &&
                 <div className={styles.searchbar__list}>
-                    <p>Try searching for people or keywords</p>
+                    <p>Try searching for people</p>
                 </div>
             }
         </label>

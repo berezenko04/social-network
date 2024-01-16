@@ -39,6 +39,10 @@
             font-size: 20px;
             line-height: 28px;
             padding: 16px 0;
+
+            .hashtag {
+                color: $primary-500;
+            }
         }
 
         &__preview {
@@ -101,12 +105,7 @@
                 position: absolute;
                 top: 64px;
                 left: 0;
-
-                
-            }
-
-            .em-emoji-picker{
-                
+                z-index: 999;
             }
 
             &__buttons {

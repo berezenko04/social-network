@@ -3,8 +3,8 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const fetchPosts = createAsyncThunk(
     '/posts/fetchPosts',
-    async (page: number) => {
-        const data = await getPosts(page);
+    async () => {
+        const data = await getPosts();
         return data;
     }
 )
