@@ -21,6 +21,5 @@ const upload = multer({ storage });
 
 router.post("/create", upload.array('images[]'), checkAuth, PostController.createPost);
 router.get("/get", PostController.getPosts);
-router.get("/likes", PostController.getPostLikes);
 
 export default router;

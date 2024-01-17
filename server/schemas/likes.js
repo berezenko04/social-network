@@ -10,6 +10,10 @@ const LikesSchema = new mongoose.Schema(
                 default: []
             }
         },
+        count: {
+            type: Number,
+            default: 0
+        },
         post: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Post",

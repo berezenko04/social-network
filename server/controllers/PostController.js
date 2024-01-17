@@ -50,11 +50,13 @@ export const createPost = async (req, res) => {
         const postItem = new PostModel({
             content: req.body.content,
             attached: attachedUrls,
-            user: userId
+            user: userId,
         });
 
         const likesItem = new LikesModel({
-            post: postItem.id
+            post: postItem.id,
+            users: [],
+            count: 0
         })
 
         await postItem.save();
@@ -90,23 +92,5 @@ export const getPosts = async (req, res) => {
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: "Server error" });
-    }
-}
-
-export const getPostLikes = async (req, res) => {
-    try {
-        const postId = req.body.postId;
-        const likes = await LikesModel.find({ post: postId });
-        const likesCount = await LikesModel.countDocuments({ post: postId });
-
-        res.status(200).json({
-            likes: likes,
-            count: likesCount
-        });
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({
-            message: "Server error"
-        })
     }
 }

@@ -35,6 +35,7 @@ export const postSlice = createSlice({
         })
 
         builder.addCase(createPost.fulfilled, (state, action: PayloadAction<TPost>) => {
+            console.log('redux', action.payload);
             state.data?.unshift(action.payload);
         })
     }

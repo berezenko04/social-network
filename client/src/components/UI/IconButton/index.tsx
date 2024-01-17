@@ -7,11 +7,15 @@ import { ButtonHTMLAttributes } from 'react';
 interface IIconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     variant: 'primary' | 'blue' | 'red',
     icon: React.ReactNode,
-    text?: string
+    text?: string,
+    active?: boolean
 }
 
-const IconButton: React.FC<IIconButtonProps> = ({ variant, icon, text, ...props }) => {
-    const variants = cn(styles[`button__${variant}`]);
+const IconButton: React.FC<IIconButtonProps> = ({ variant, icon, text, active, ...props }) => {
+    const variants = cn(
+        styles[`button__${variant}`],
+        active ? styles[`button__${variant}__active`] : ''
+    );
 
     return (
         <button className={cn(styles.button, variants)} {...props}>

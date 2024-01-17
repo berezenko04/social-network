@@ -66,6 +66,14 @@
     }
 
     &__red {
+        &__active {
+            color: $error-500;
+
+            svg path {
+                fill: $error-500;
+            }
+        }
+
         &:hover {
             color: $error-500;
 

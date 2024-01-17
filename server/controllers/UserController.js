@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
+import mongoose from 'mongoose'
 
 //models
 import UserModel from '../schemas/user.js'
@@ -138,7 +139,11 @@ export const getUser = async (req, res) => {
 export const getUsers = async (req, res) => {
     try {
         const limit = parseInt(req.query.limit) || 6;
-        const users = await UserModel.aggregate([{ $sample: { size: limit } }]);
+        
+        const users = await UserModel.aggregate([
+            { $match: { _id: { $ne: new mongoose.Types.ObjectId(req.userId) } } },
+            { $sample: { size: limit } },
+        ]);
 
         res.status(200).json(users);
     } catch (err) {
