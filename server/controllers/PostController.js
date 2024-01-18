@@ -94,3 +94,22 @@ export const getPosts = async (req, res) => {
         res.status(500).json({ message: "Server error" });
     }
 }
+
+export const getPost = async (req, res) => {
+    try {
+        const postId = req.query.postId;
+
+        const post = await PostModel.findById(postId);
+
+        if (!post) {
+            res.status(404).json({
+                message: "Post is not found",
+            });
+        }
+
+        res.status(200).json({ post });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Server error" });
+    }
+}

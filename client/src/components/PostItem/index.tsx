@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link';
 import Image from 'next/image';
 import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 
 //styles
 import styles from './PostItem.module.scss'
@@ -28,11 +29,11 @@ import ViewsIcon from '@/assets/icons/trends.svg'
 import BookmarkIcon from '@/assets/icons/bookmark.svg'
 import BookmarkFilledIcon from '@/assets/icons/bookmark-filled.svg'
 import ShareIcon from '@/assets/icons/share.svg'
+import RedirectIcon from '@/assets/icons/redirect.svg'
 
 //redux
 import { TPost } from '@/redux/slices/posts/types';
 import { IUserData } from '@/redux/slices/user/types';
-
 
 
 const PostItem: React.FC<TPost> = ({ _id, user, content, attached, views, createdAt }) => {
@@ -40,6 +41,8 @@ const PostItem: React.FC<TPost> = ({ _id, user, content, attached, views, create
     const [likesCount, setLikesCount] = useState<number>(0);
     const [isLiked, setIsLiked] = useState<boolean>(false);
     const [isBookmarked, setIsBookmarked] = useState<boolean>(false);
+    const router = useRouter();
+
 
     useEffect(() => {
         (async () => {
@@ -73,6 +76,11 @@ const PostItem: React.FC<TPost> = ({ _id, user, content, attached, views, create
         try {
             await bookmarkPost(_id);
             setIsBookmarked(prev => !prev);
+            if (isBookmarked) {
+                toast.info('Removed from your bookmarks');
+            } else {
+                toast.info('Added to your bookmarks');
+            }
         } catch (err) {
             toast.error("Error when bookmarking");
         }
@@ -81,9 +89,8 @@ const PostItem: React.FC<TPost> = ({ _id, user, content, attached, views, create
     return (
         <>
             {(userData) &&
-                <li className={styles.postItem} style={{ color: 'white' }}>
+                <li className={styles.postItem}>
                     <div className={styles.postItem__wrapper}>
-                        <Link href=''></Link>
                         <Avatar size='sm' imgSrc={userData?.avatarUrl} />
                         <div className={styles.postItem__main}>
                             <div className={styles.postItem__main__head}>
@@ -145,6 +152,11 @@ const PostItem: React.FC<TPost> = ({ _id, user, content, attached, views, create
                                     <IconButton
                                         variant='blue'
                                         icon={<ShareIcon />}
+                                    />
+                                    <IconButton
+                                        variant='blue'
+                                        onClick={() => router.push(`/posts/${_id}`)}
+                                        icon={<RedirectIcon />}
                                     />
                                 </div>
                             </div>

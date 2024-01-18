@@ -14,13 +14,13 @@ export const likePost = async (req, res) => {
         const post = await PostModel.findById(postId);
 
         if (!user) {
-            res.status(400).json({
+            res.status(404).json({
                 message: "User is not found",
             });
         }
 
         if (!post) {
-            res.status(400).json({
+            res.status(404).json({
                 message: "Post is not found",
             });
         }

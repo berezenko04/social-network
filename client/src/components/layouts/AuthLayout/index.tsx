@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect } from 'react';
-import { ToastContainer } from 'react-toastify'
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 
@@ -9,8 +8,12 @@ import Cookies from 'js-cookie';
 import styles from './AuthLayout.module.scss'
 import 'react-toastify/dist/ReactToastify.css';
 
+//components
+import ToastContainer from '@/components/UI/ToastContainer';
+
 //icons
 import Logo from '@/assets/icons/logo.svg'
+
 
 
 interface IAuthLayoutProps {
@@ -36,15 +39,7 @@ const AuthLayout: React.FC<IAuthLayoutProps> = ({ children }) => {
                     </div>
                 </div>
             </div>
-            <ToastContainer
-                position="bottom-center"
-                autoClose={4000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                theme="dark"
-            />
+            <ToastContainer />
         </main>
     )
 }

@@ -118,7 +118,14 @@ export const getMe = async (req, res) => {
 
 export const getUser = async (req, res) => {
     try {
+        if (!req.query.userId) {
+            return res.status(404).json({
+                message: "Invalid user id"
+            })
+        }
+
         const user = await UserModel.findById(req.query.userId);
+
         if (!user) {
             return res.status(404).json({
                 message: "User is not found",
@@ -139,7 +146,7 @@ export const getUser = async (req, res) => {
 export const getUsers = async (req, res) => {
     try {
         const limit = parseInt(req.query.limit) || 6;
-        
+
         const users = await UserModel.aggregate([
             { $match: { _id: { $ne: new mongoose.Types.ObjectId(req.userId) } } },
             { $sample: { size: limit } },

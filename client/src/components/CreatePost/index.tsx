@@ -152,7 +152,7 @@ const CreatePost: React.FC = () => {
                                     icon={<PictureIcon />}
                                     onClick={handleClickInput}
                                     type='button'
-                                    disabled={images.length >= 2}
+                                    disabled={images.length >= 1}
                                 />
                                 <input
                                     type="file"

@@ -15,6 +15,18 @@
         justify-content: center;
         align-items: center;
 
+        &::after {
+            content: '';
+            width: 32px;
+            height: 32px;
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translate(0, -50%);
+            border-radius: 100%;
+            transition: all .2s ease-in;
+        }
+
         svg {
             width: 20px;
             height: 20px;
@@ -35,6 +47,17 @@
         }
     }
 
+    &__neutral {
+        svg path {
+            fill: $white;
+        }
+
+        &:hover {
+            span::after {
+                background-color: rgba($grey-50, 0.15);
+            }
+        }
+    }
 
     &__primary {
         svg path {
@@ -51,17 +74,6 @@
     &__blue {
         svg path {
             fill: $grey-400;
-        }
-
-        span::after {
-            content: '';
-            width: 32px;
-            height: 32px;
-            position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translate(0, -50%);
-            border-radius: 100%;
         }
     }
 
@@ -85,7 +97,8 @@
 
     &__blue {
 
-        &__active {
+        &__active,
+        &:hover {
             color: $primary-500;
 
             svg path {
@@ -94,14 +107,8 @@
         }
 
         &:hover {
-            color: $primary-500;
-
             span::after {
                 background-color: rgba($primary-500, 0.15);
-            }
-
-            svg path {
-                fill: $primary-500;
             }
         }
     }

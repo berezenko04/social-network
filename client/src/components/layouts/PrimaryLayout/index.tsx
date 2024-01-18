@@ -3,7 +3,6 @@
 import { useEffect } from 'react'
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/navigation'
-import { ToastContainer } from 'react-toastify';
 
 //styles
 import styles from './PrimaryLayout.module.scss'
@@ -13,6 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 //components
 import Sidebar from "@/components/Sidebar"
 import Header from '@/components/Header'
+import ToastContainer from '@/components/UI/ToastContainer';
 
 
 interface IPrimaryLayoutProps {
@@ -36,15 +36,7 @@ const PrimaryLayout: React.FC<IPrimaryLayoutProps> = ({ children }) => {
                         {children}
                     </main>
                     <Sidebar />
-                    <ToastContainer
-                        position="bottom-center"
-                        autoClose={4000}
-                        hideProgressBar={false}
-                        newestOnTop={false}
-                        closeOnClick
-                        rtl={false}
-                        theme="dark"
-                    />
+                    <ToastContainer />
                 </div>
             </div>
         </div>

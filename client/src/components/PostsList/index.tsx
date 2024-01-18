@@ -66,7 +66,7 @@ const PostsList: React.FC = () => {
                 <PostItem {...post} key={idx} />
             ))
                 :
-                [...Array(6)].map((_, idx) => (
+                [...Array(3)].map((_, idx) => (
                     <PostSkeleton key={idx} />
                 ))
             }

@@ -14,3 +14,8 @@ export const getPosts = async () => {
     const { data } = await axios.get(`/posts/get`);
     return data;
 }
+
+export const getPost = async (postId: string) => {
+    const { data } = await axios.get(`/posts/single?postId=${postId}`);
+    return data;
+}
