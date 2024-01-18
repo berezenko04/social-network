@@ -11,6 +11,7 @@ import styles from './PostItem.module.scss'
 //API
 import { getUser } from '@/API/userService';
 import { likePost, getLikesCount, isPostLiked } from '@/API/likesService';
+import { bookmarkPost, isPostBookmarked } from '@/API/bookmarksService';
 
 //components
 import Avatar from '../UI/Avatar';
@@ -25,6 +26,7 @@ import LikeIcon from '@/assets/icons/like.svg'
 import LikeFilledIcon from '@/assets/icons/like-filled.svg'
 import ViewsIcon from '@/assets/icons/trends.svg'
 import BookmarkIcon from '@/assets/icons/bookmark.svg'
+import BookmarkFilledIcon from '@/assets/icons/bookmark-filled.svg'
 import ShareIcon from '@/assets/icons/share.svg'
 
 //redux
@@ -32,28 +34,29 @@ import { TPost } from '@/redux/slices/posts/types';
 import { IUserData } from '@/redux/slices/user/types';
 
 
+
 const PostItem: React.FC<TPost> = ({ _id, user, content, attached, views, createdAt }) => {
     const [userData, setUserData] = useState<IUserData>();
     const [likesCount, setLikesCount] = useState<number>(0);
     const [isLiked, setIsLiked] = useState<boolean>(false);
-
-    console.log("Id", isLiked);
+    const [isBookmarked, setIsBookmarked] = useState<boolean>(false);
 
     useEffect(() => {
         (async () => {
             const userData = await getUser(user);
             const likesData = await getLikesCount(_id);
             const isLikeData = await isPostLiked(_id);
+            const isBookmarkedData = await isPostBookmarked(_id);
 
             setIsLiked(isLikeData.isLiked);
             setLikesCount(likesData.count);
             setUserData(userData);
+            setIsBookmarked(isBookmarkedData.isBookmark);
         })();
     }, [_id]);
 
 
     const handleLike = async () => {
-        console.log('handleLike');
         try {
             await likePost(_id);
             setIsLiked(prev => !prev);
@@ -66,11 +69,21 @@ const PostItem: React.FC<TPost> = ({ _id, user, content, attached, views, create
         }
     }
 
+    const handleBookmark = async () => {
+        try {
+            await bookmarkPost(_id);
+            setIsBookmarked(prev => !prev);
+        } catch (err) {
+            toast.error("Error when bookmarking");
+        }
+    }
+
     return (
         <>
             {(userData) &&
                 <li className={styles.postItem} style={{ color: 'white' }}>
                     <div className={styles.postItem__wrapper}>
+                        <Link href=''></Link>
                         <Avatar size='sm' imgSrc={userData?.avatarUrl} />
                         <div className={styles.postItem__main}>
                             <div className={styles.postItem__main__head}>
@@ -122,7 +135,12 @@ const PostItem: React.FC<TPost> = ({ _id, user, content, attached, views, create
                                 <div className={styles.postItem__main__footer__share}>
                                     <IconButton
                                         variant='blue'
-                                        icon={<BookmarkIcon />}
+                                        active={isBookmarked}
+                                        onClick={handleBookmark}
+                                        icon={
+                                            isBookmarked ?
+                                                <BookmarkFilledIcon /> : <BookmarkIcon />
+                                        }
                                     />
                                     <IconButton
                                         variant='blue'

@@ -6,7 +6,7 @@ export const likePost = async (postId: string) => {
 }
 
 export const isPostLiked = async (postId: string) => {
-    const { data } = await axios.post(`/likes/isLiked?postId=${postId}`);
+    const { data } = await axios.get(`/likes/isLiked?postId=${postId}`);
     return data;
 }
 

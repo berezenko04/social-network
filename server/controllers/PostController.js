@@ -7,6 +7,7 @@ import fs from 'fs'
 import PostModel from '../schemas/post.js'
 import UserModel from '../schemas/user.js'
 import LikesModel from '../schemas/likes.js'
+import BookmarksModel from '../schemas/bookmarks.js'
 
 dotenv.config();
 
@@ -53,14 +54,13 @@ export const createPost = async (req, res) => {
             user: userId,
         });
 
-        const likesItem = new LikesModel({
-            post: postItem.id,
-            users: [],
-            count: 0
-        })
+        const likesItem = new LikesModel({ post: postItem.id, })
+
+        const bookmarksItem = new BookmarksModel({ post: postItem.id })
 
         await postItem.save();
         await likesItem.save();
+        await bookmarksItem.save();
 
         res.status(200).json(postItem);
     } catch (err) {
