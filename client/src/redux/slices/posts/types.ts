@@ -17,6 +17,5 @@ export type TPost = {
     attached: string[],
     createdAt: Date
     user: string,
-    likes: number,
-    views: number
+    likes: number
 }

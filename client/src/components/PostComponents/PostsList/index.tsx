@@ -15,7 +15,7 @@ import { TPost } from '@/redux/slices/posts/types';
 
 //components
 import PostItem from '../PostItem';
-import PostSkeleton from '../Skeletons/PostSkeleton';
+import PostSkeleton from '../../Skeletons/PostSkeleton';
 
 
 const PostsList: React.FC = () => {

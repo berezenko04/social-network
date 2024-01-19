@@ -6,7 +6,7 @@ import styles from './Header.module.scss'
 //components
 import NavigationLink from '@/components/NavigationLink'
 import Button from '../UI/Button';
-import UserCard from '../UserCard';
+import UserCard from '../UserComponents/UserCard';
 
 //icons
 import Logo from '@/assets/icons/logo.svg'

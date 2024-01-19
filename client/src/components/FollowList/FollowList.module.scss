@@ -45,9 +45,14 @@
                 }
             }
 
-            &:last-child a {
-                color: $primary-500;
-                padding: 8px 0;
+            &:last-child {
+                border-bottom-left-radius: 12px;
+                border-bottom-right-radius: 12px;
+
+                a {
+                    color: $primary-500;
+                    padding: 8px 0;
+                }
             }
         }
     }

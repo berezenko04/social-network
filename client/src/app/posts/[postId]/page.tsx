@@ -11,7 +11,7 @@ import styles from './PostPage.module.scss'
 //components
 import PrimaryLayout from '@/components/layouts/PrimaryLayout'
 import IconButton from '@/components/UI/IconButton'
-import PostItem from '@/components/PostItem';
+import PostItem from '@/components/PostComponents/PostItem';
 import PostSkeleton from '@/components/Skeletons/PostSkeleton';
 
 //icons
@@ -54,7 +54,7 @@ const PostPage: NextPage<TPostPageProps> = ({ params }) => {
                 <IconButton
                     variant='neutral'
                     icon={<ArrowBackIcon />}
-                    onClick={() => router.back()}
+                    onClick={() => router.push('/home')}
                 />
                 <h1>Post</h1>
             </div>

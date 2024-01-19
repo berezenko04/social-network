@@ -1,0 +1,21 @@
+@import '@/scss/variables.scss';
+
+.user {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+
+    &__info {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .divider {
+        background-color: $grey-500;
+        border-radius: 100%;
+        width: 4px;
+        height: 4px;
+    }
+}

@@ -9,13 +9,15 @@ import styles from './FollowList.module.scss'
 //components
 import Avatar from '../UI/Avatar';
 import Button from '../UI/Button';
-import UserName from '../UserName';
+import UserName from '../UserComponents/UserName';
+import FollowListItemSkeleton from '../Skeletons/FollowListItemSkeleton';
 
 //types
 import { IUserData } from '@/redux/slices/user/types';
 
 //API
 import { getUsers } from '@/API/userService';
+
 
 
 const FollowList: React.FC = () => {
@@ -32,7 +34,7 @@ const FollowList: React.FC = () => {
         <div className={styles.followList}>
             <h3>Who to follow</h3>
             <ul className={styles.followList__users}>
-                {users.map((user, idx) => (
+                {users.length > 0 ? users.map((user, idx) => (
                     <li
                         className={styles.followList__users__item}
                         key={idx}
@@ -59,7 +61,14 @@ const FollowList: React.FC = () => {
                             Follow
                         </Button>
                     </li>
-                ))}
+                ))
+                    :
+                    [...Array(3)].map((_, idx) => (
+                        <li key={idx}>
+                            <FollowListItemSkeleton />
+                        </li>
+                    ))
+                }
                 <li className={styles.followList__users__item}>
                     <Link
                         href={'/explore/follow'}

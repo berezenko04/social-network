@@ -4,7 +4,7 @@ import styles from './Sidebar.module.scss'
 //components
 import SearchBar from '../SearchBar'
 import FollowList from '../FollowList'
-import UserModal from '../UserModal';
+import UserModal from '../UserComponents/UserModal';
 import SidebarFooter from '../SidebarFooter';
 
 

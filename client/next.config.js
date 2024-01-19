@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
-    reactStrictMode: false,
+    reactStrictMode: true,
     async rewrites() {
         return [
             {
@@ -14,7 +14,6 @@ const nextConfig = {
         remotePatterns: [
             {
                 hostname: '**',
-                // pathname: '/uploads/**',
             }
         ]
     },

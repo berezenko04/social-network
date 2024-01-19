@@ -8,10 +8,11 @@ interface IIconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     variant: 'primary' | 'blue' | 'red' | 'neutral',
     icon: React.ReactNode,
     text?: string,
-    active?: boolean
+    active?: boolean,
+    forwardedRef?: React.RefObject<HTMLButtonElement>
 }
 
-const IconButton: React.FC<IIconButtonProps> = ({ variant, icon, text, active, ...props }) => {
+const IconButton: React.FC<IIconButtonProps> = ({ variant, forwardedRef, icon, text, active, ...props }) => {
     const variants = cn(
         styles[`button__${variant}`],
         active ? styles[`button__${variant}__active`] : ''
@@ -19,7 +20,11 @@ const IconButton: React.FC<IIconButtonProps> = ({ variant, icon, text, active, .
 
 
     return (
-        <button className={cn(styles.button, variants)} {...props}>
+        <button
+            className={cn(styles.button, variants)}
+            ref={forwardedRef}
+            {...props}
+        >
             <span>
                 {icon}
             </span>
