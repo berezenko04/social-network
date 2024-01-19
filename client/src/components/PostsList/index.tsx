@@ -67,7 +67,9 @@ const PostsList: React.FC = () => {
             ))
                 :
                 [...Array(3)].map((_, idx) => (
-                    <PostSkeleton key={idx} />
+                    <li key={idx}>
+                        <PostSkeleton />
+                    </li>
                 ))
             }
         </ul>

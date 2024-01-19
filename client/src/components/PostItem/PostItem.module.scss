@@ -24,19 +24,6 @@
                 width: 4px;
                 height: 4px;
             }
-
-            a {
-                font-size: 16px;
-                font-weight: 500;
-                color: $white;
-                display: flex;
-                align-items: center;
-                gap: 2px;
-
-                &:hover {
-                    text-decoration: underline;
-                }
-            }
         }
 
         &__content {

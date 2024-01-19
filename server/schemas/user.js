@@ -27,6 +27,18 @@ const UserSchema = new mongoose.Schema(
         birthDate: {
             type: String,
             required: true
+        },
+        description: {
+            type: String,
+            default: ''
+        },
+        followers: {
+            type: Number,
+            default: 0
+        },
+        following: {
+            type: Number,
+            default: 0
         }
     },
     {

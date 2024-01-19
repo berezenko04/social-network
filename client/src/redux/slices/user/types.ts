@@ -12,7 +12,10 @@ export interface IUserData {
     avatarUrl: string,
     token: string,
     birthDate: string,
-    username: string
+    username: string,
+    description: string
+    followers: number,
+    following: number
 }
 
 export interface IUpdateInfo {

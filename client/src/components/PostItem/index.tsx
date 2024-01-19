@@ -34,6 +34,7 @@ import RedirectIcon from '@/assets/icons/redirect.svg'
 //redux
 import { TPost } from '@/redux/slices/posts/types';
 import { IUserData } from '@/redux/slices/user/types';
+import UserName from '../UserName';
 
 
 const PostItem: React.FC<TPost> = ({ _id, user, content, attached, views, createdAt }) => {
@@ -95,8 +96,11 @@ const PostItem: React.FC<TPost> = ({ _id, user, content, attached, views, create
                         <div className={styles.postItem__main}>
                             <div className={styles.postItem__main__head}>
                                 <Link href={`/${userData.name}`}>
-                                    {userData.name}
-                                    <VerifiedIcon />
+                                    <UserName
+                                        name={userData.name}
+                                        userId={userData._id}
+                                        hovered
+                                    />
                                 </Link>
                                 <p>@{userData.username}</p>
                                 <span className={styles.divider} />

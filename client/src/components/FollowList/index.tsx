@@ -9,15 +9,13 @@ import styles from './FollowList.module.scss'
 //components
 import Avatar from '../UI/Avatar';
 import Button from '../UI/Button';
+import UserName from '../UserName';
 
 //types
 import { IUserData } from '@/redux/slices/user/types';
 
 //API
 import { getUsers } from '@/API/userService';
-
-//icons
-import VerifiedIcon from '@/assets/icons/verified.svg'
 
 
 const FollowList: React.FC = () => {
@@ -44,14 +42,12 @@ const FollowList: React.FC = () => {
                         >
                             <Avatar size='sm' imgSrc={user.avatarUrl} />
                             <div className={styles.followList__users__item__info}>
-                                <p>
-                                    {user.name.length > 15 ?
-                                        `${user.name.slice(0, 15)}...`
-                                        :
-                                        user.name
-                                    }
-                                    <VerifiedIcon />
-                                </p>
+                                <UserName
+                                    name={user.name}
+                                    userId={user._id}
+                                    sliced
+                                    hovered
+                                />
                                 <span>@{user.username}</span>
                             </div>
                         </Link>
