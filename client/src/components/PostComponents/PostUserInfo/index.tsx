@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 //styles 
 import styles from './PostUserInfo.module.scss'
@@ -17,21 +17,26 @@ import MoreIcon from '@/assets/icons/more.svg'
 import { IUserData } from '@/redux/slices/user/types';
 
 
+
 interface IPostUserInfoProps extends IUserData {
     createdAt: Date
 }
 
 const PostUserInfo: React.FC<IPostUserInfoProps> = ({ name, username, _id, createdAt }) => {
+    const router = useRouter();
     return (
         <div className={styles.user}>
             <div className={styles.user__info}>
-                <Link href={`/${username}`}>
+                <div
+                    className={styles.user__info__name}
+                    onClick={() => router.push(`/${username}`)}
+                >
                     <UserName
                         name={name}
                         userId={_id}
                         hovered
                     />
-                </Link>
+                </div>
                 <p>@{username}</p>
                 <span className={styles.divider} />
                 <p>{formatDate(createdAt)}</p>

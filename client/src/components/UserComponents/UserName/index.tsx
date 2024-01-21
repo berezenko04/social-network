@@ -44,8 +44,8 @@ const UserName: React.FC<TUserNameProps> = ({ name, userId, hovered = false, sli
             onMouseLeave={() => setIsHovered(false)}
         >
             {sliced ?
-                (name.length > 15 ?
-                    `${name.slice(0, 15)}...`
+                (name.length > 13 ?
+                    `${name.slice(0, 13)}...`
                     :
                     name
                 )

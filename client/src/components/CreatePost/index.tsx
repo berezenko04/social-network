@@ -188,7 +188,7 @@ const CreatePost: React.FC = () => {
                                         maxValue={maxLength}
                                         strokeWidth={6}
                                         styles={buildStyles({
-                                            trailColor: '#2f3337',
+                                            trailColor: '#2f3337'
                                         })}
                                     />
                                 </div>

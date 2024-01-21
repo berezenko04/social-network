@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 //styles
 import styles from './FollowList.module.scss'
@@ -19,8 +20,10 @@ import { IUserData } from '@/redux/slices/user/types';
 import { getUsers } from '@/API/userService';
 
 
+
 const FollowList: React.FC = () => {
     const [users, setUsers] = useState<IUserData[]>([]);
+    const router = useRouter();
 
     useEffect(() => {
         (async () => {
@@ -38,8 +41,9 @@ const FollowList: React.FC = () => {
                         className={styles.followList__users__item}
                         key={idx}
                     >
-                        <Link
-                            href={`/${user.username}`}
+                        <div
+                            className={styles.followList__users__item__container}
+                            onClick={() => router.push(`/${user.username}`)}
                         >
                             <Avatar size='sm' imgSrc={user.avatarUrl} />
                             <div className={styles.followList__users__item__info}>
@@ -51,7 +55,7 @@ const FollowList: React.FC = () => {
                                 />
                                 <span>@{user.username}</span>
                             </div>
-                        </Link>
+                        </div>
                         <FollowButton targetId={user._id} />
                     </li>
                 ))

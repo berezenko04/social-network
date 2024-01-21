@@ -10,7 +10,6 @@ import Button from "@/components/UI/Button"
 import { follow, isFollowed } from "@/API/followsService"
 
 
-
 type TFollowButtonProps = {
     targetId: string
 }
@@ -18,10 +17,11 @@ type TFollowButtonProps = {
 const FollowButton: React.FC<TFollowButtonProps> = ({ targetId }) => {
     const [isFollow, setIsFollow] = useState<boolean>(false);
 
-    const handleFollow = async () => {
+    const handleFollow = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.stopPropagation();
         try {
-            await follow(targetId);
             setIsFollow(prev => !prev);
+            await follow(targetId);
         } catch (err) {
             toast.error('Error while following');
         }
@@ -43,7 +43,7 @@ const FollowButton: React.FC<TFollowButtonProps> = ({ targetId }) => {
             size='xs'
             variant={isFollow ? 'fourtiary' : 'secondary'}
             fullWidth={false}
-            onClick={handleFollow}
+            onClick={(e) => handleFollow(e)}
         >
             {isFollow ? 'Following' : 'Follow'}
         </Button>

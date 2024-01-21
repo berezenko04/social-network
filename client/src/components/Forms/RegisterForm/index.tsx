@@ -64,11 +64,11 @@ const RegisterForm: React.FC = () => {
         });
 
     const schema = Joi.object({
-        name: Joi.string().required().min(5).regex(/[a-zA-Zа-яА-Я]+ [a-zA-Zа-яА-Я]+/).messages({
+        name: Joi.string().required().min(5).regex(/^[a-zA-Z\d]+$/).messages({
             'string.base': 'Full name should be a text',
             'string.empty': 'Full name is required',
             'string.min': 'Too short',
-            'string.pattern.base': 'Full name should be contains name and last name',
+            'string.pattern.base': 'Invalid name',
         }),
         email: Joi.string().email({ tlds: false }).required().messages({
             'string.empty': 'Email is required',

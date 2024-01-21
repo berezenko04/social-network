@@ -20,17 +20,19 @@
             display: flex;
             align-items: center;
             padding: 8px 16px;
+            gap: 8px;
 
             &:hover {
                 background-color: rgba($grey-50, 0.1);
             }
 
-            a {
+            &__container {
                 transition: all .2s ease-in;
                 display: flex;
                 align-items: center;
-                gap: 4px;
+                gap: 8px;
                 width: 100%;
+                cursor: pointer;
             }
 
             &__info {
