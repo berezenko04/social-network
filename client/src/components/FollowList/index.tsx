@@ -8,8 +8,8 @@ import styles from './FollowList.module.scss'
 
 //components
 import Avatar from '../UI/Avatar';
-import Button from '../UI/Button';
 import UserName from '../UserComponents/UserName';
+import FollowButton from '../UserComponents/FollowButton';
 import FollowListItemSkeleton from '../Skeletons/FollowListItemSkeleton';
 
 //types
@@ -17,7 +17,6 @@ import { IUserData } from '@/redux/slices/user/types';
 
 //API
 import { getUsers } from '@/API/userService';
-
 
 
 const FollowList: React.FC = () => {
@@ -53,13 +52,7 @@ const FollowList: React.FC = () => {
                                 <span>@{user.username}</span>
                             </div>
                         </Link>
-                        <Button
-                            size='xs'
-                            variant='secondary'
-                            fullWidth={false}
-                        >
-                            Follow
-                        </Button>
+                        <FollowButton targetId={user._id} />
                     </li>
                 ))
                     :

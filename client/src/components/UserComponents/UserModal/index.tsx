@@ -7,7 +7,7 @@ import styles from './UserModal.module.scss'
 
 //components
 import Avatar from '../../UI/Avatar'
-import Button from '../../UI/Button';
+import FollowButton from '../FollowButton';
 import UserName from '../UserName';
 
 //redux
@@ -15,7 +15,8 @@ import { IUserData } from '@/redux/slices/user/types'
 
 //API
 import { getUser } from '@/API/userService';
-
+import { useSelector } from 'react-redux';
+import { userDataSelector } from '@/redux/slices/user/selectors';
 
 
 type TUserModalProps = {
@@ -31,6 +32,8 @@ const UserModal: React.FC<TUserModalProps> = ({ userId }) => {
         })();
     }, []);
 
+    const me = useSelector(userDataSelector);
+
     return (
         <div className={styles.modal}>
             <div className={styles.modal__wrapper}>
@@ -38,13 +41,9 @@ const UserModal: React.FC<TUserModalProps> = ({ userId }) => {
                     <Fragment>
                         <div className={styles.modal__head}>
                             <Avatar size='md' imgSrc={user?.avatarUrl} />
-                            <Button
-                                variant='secondary'
-                                size='xs'
-                                fullWidth={false}
-                            >
-                                Follow
-                            </Button>
+                            {me && (me._id !== userId &&
+                                <FollowButton targetId={user._id} />
+                            )}
                         </div>
                         <div className={styles.modal__user}>
                             <UserName name={user?.name} userId={userId} />

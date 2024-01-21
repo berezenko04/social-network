@@ -84,4 +84,14 @@
             background-color: rgba($primary-500, 0.1);
         }
     }
+
+    &__fourtiary {
+        background-color: transparent;
+        color: $white;
+        border: 1px solid $grey-600;
+
+        &:hover {
+            background-color: rgba($white, 0.1);
+        }
+    }
 }

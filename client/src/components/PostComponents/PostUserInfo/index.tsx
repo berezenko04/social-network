@@ -25,7 +25,7 @@ const PostUserInfo: React.FC<IPostUserInfoProps> = ({ name, username, _id, creat
     return (
         <div className={styles.user}>
             <div className={styles.user__info}>
-                <Link href={`/${name}`}>
+                <Link href={`/${username}`}>
                     <UserName
                         name={name}
                         userId={_id}

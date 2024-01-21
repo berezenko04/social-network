@@ -8,7 +8,7 @@ import styles from './Button.module.scss'
 interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     children: React.ReactNode,
     size: 'xs' | 'sm' | 'lg',
-    variant: 'primary' | 'secondary' | 'tertiary',
+    variant: 'primary' | 'secondary' | 'tertiary' | 'fourtiary',
     fullWidth?: boolean,
     link?: boolean,
     href?: string

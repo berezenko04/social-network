@@ -10,6 +10,7 @@ import PostsRoutes from './routes/post.js'
 import UserRoutes from './routes/user.js'
 import LikesRoutes from './routes/likes.js'
 import BookmarksRoutes from './routes/bookmarks.js'
+import FollowRoutes from './routes/follows.js'
 
 dotenv.config();
 
@@ -35,6 +36,7 @@ app.use(`${SERVER_PREFIX}/posts`, PostsRoutes);
 app.use(`${SERVER_PREFIX}/user`, UserRoutes);
 app.use(`${SERVER_PREFIX}/likes`, LikesRoutes);
 app.use(`${SERVER_PREFIX}/bookmarks`, BookmarksRoutes);
+app.use(`${SERVER_PREFIX}/follows`, FollowRoutes);
 
 app.listen(PORT, (err) => {
     if (err) {

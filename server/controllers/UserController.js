@@ -4,6 +4,7 @@ import mongoose from 'mongoose'
 
 //models
 import UserModel from '../schemas/user.js'
+import FollowModel from '../schemas/follows.js'
 
 //utils
 import { generateUniqueUsername } from '../utils/generateUniqueUsername.js'
@@ -43,6 +44,10 @@ export const register = async (req, res) => {
         );
 
         const { passwordHash, ...userData } = user._doc;
+
+        const followItem = new FollowModel({ user: user._id });
+
+        followItem.save();
 
         res.json({
             ...userData,
