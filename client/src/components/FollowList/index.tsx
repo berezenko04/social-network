@@ -2,15 +2,11 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 
 //styles
 import styles from './FollowList.module.scss'
 
 //components
-import Avatar from '../UI/Avatar';
-import UserName from '../UserComponents/UserName';
-import FollowButton from '../UserComponents/FollowButton';
 import FollowListItemSkeleton from '../Skeletons/FollowListItemSkeleton';
 
 //types
@@ -18,12 +14,11 @@ import { IUserData } from '@/redux/slices/user/types';
 
 //API
 import { getUsers } from '@/API/userService';
-
+import UserItem from '../UserComponents/UserItem';
 
 
 const FollowList: React.FC = () => {
     const [users, setUsers] = useState<IUserData[]>([]);
-    const router = useRouter();
 
     useEffect(() => {
         (async () => {
@@ -38,25 +33,13 @@ const FollowList: React.FC = () => {
             <ul className={styles.followList__users}>
                 {users.length > 0 ? users.map((user, idx) => (
                     <li
-                        className={styles.followList__users__item}
                         key={idx}
                     >
-                        <div
-                            className={styles.followList__users__item__container}
-                            onClick={() => router.push(`/${user.username}`)}
-                        >
-                            <Avatar size='sm' imgSrc={user.avatarUrl} />
-                            <div className={styles.followList__users__item__info}>
-                                <UserName
-                                    name={user.name}
-                                    userId={user._id}
-                                    sliced
-                                    hovered
-                                />
-                                <span>@{user.username}</span>
-                            </div>
-                        </div>
-                        <FollowButton targetId={user._id} />
+                        <UserItem
+                            sliced
+                            hovered
+                            withFollow {...user}
+                        />
                     </li>
                 ))
                     :
@@ -66,7 +49,7 @@ const FollowList: React.FC = () => {
                         </li>
                     ))
                 }
-                <li className={styles.followList__users__item}>
+                <li className={styles.followList__users__more}>
                     <Link
                         href={'/explore/follow'}
                     >

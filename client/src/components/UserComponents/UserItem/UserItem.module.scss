@@ -1,0 +1,33 @@
+@import '@/scss/variables.scss';
+
+.item {
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    gap: 8px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: rgba($grey-50, 0.1);
+    }
+
+    &__container {
+        transition: all .2s ease-in;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        width: 100%;
+    }
+
+    &__info {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        gap: 0;
+
+        span {
+            font-size: 16px;
+            color: $grey-500;
+        }
+    }
+}

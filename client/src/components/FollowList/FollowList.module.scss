@@ -16,45 +16,18 @@
         flex-direction: column;
         gap: 0;
 
-        &__item {
-            display: flex;
-            align-items: center;
-            padding: 8px 16px;
-            gap: 8px;
+        &__more {
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
 
             &:hover {
                 background-color: rgba($grey-50, 0.1);
             }
 
-            &__container {
-                transition: all .2s ease-in;
+            a {
+                color: $primary-500;
+                padding: 12px 16px;
                 display: flex;
-                align-items: center;
-                gap: 8px;
-                width: 100%;
-                cursor: pointer;
-            }
-
-            &__info {
-                display: flex;
-                flex-direction: column;
-                flex: 1;
-                gap: 0;
-
-                span {
-                    font-size: 16px;
-                    color: $grey-500;
-                }
-            }
-
-            &:last-child {
-                border-bottom-left-radius: 12px;
-                border-bottom-right-radius: 12px;
-
-                a {
-                    color: $primary-500;
-                    padding: 8px 0;
-                }
             }
         }
     }

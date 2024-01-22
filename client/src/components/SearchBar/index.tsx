@@ -1,7 +1,8 @@
 'use client';
 
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useCallback, useState } from 'react';
 import cn from 'classnames'
+import debounce from 'lodash.debounce'
 
 //styles
 import styles from './SearchBar.module.scss'
@@ -9,14 +10,29 @@ import styles from './SearchBar.module.scss'
 //icons
 import SearchIcon from '@/assets/icons/search.svg'
 import CloseIcon from '@/assets/icons/close.svg'
+import { IUserData } from '@/redux/slices/user/types';
+import { searchByUser } from '@/API/searchService';
+import Link from 'next/link';
+import Avatar from '../UI/Avatar';
+import UserItem from '../UserComponents/UserItem';
 
 const SearchBar: React.FC = () => {
     const [searchValue, setSearchValue] = useState<string>('');
     const [isFocused, setIsFocused] = useState<boolean>(false);
+    const [searchResult, setSearchResult] = useState<IUserData[]>([]);
 
     const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
-        setSearchValue(e.target.value);
+        const inputValue = e.target.value;
+        setSearchValue(inputValue);
+        inputValue && debounceHandleSearch(inputValue);
     }
+
+    const handleSearch = async (value: string) => {
+        const data = await searchByUser(value);
+        setSearchResult(data.users);
+    }
+
+    const debounceHandleSearch = useCallback(debounce(handleSearch, 500), []);
 
     return (
         <label className={cn(styles.searchbar, isFocused ? styles.searchbar__active : '')}>
@@ -39,7 +55,21 @@ const SearchBar: React.FC = () => {
             }
             {isFocused &&
                 <div className={styles.searchbar__list}>
-                    <p>Try searching for people</p>
+                    {!searchValue ? <p>Try searching for people</p>
+                        :
+                        searchResult.length ?
+                            searchResult.map((user, idx) => (
+                                <UserItem
+                                    sliced={false}
+                                    hovered={false}
+                                    withFollow={false}
+                                    key={idx}
+                                    {...user}
+                                />
+                            ))
+                            :
+                            <p>No result found</p>
+                    }
                 </div>
             }
         </label>
