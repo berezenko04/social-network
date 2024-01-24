@@ -1,0 +1,47 @@
+@import '@/scss/variables.scss';
+
+.link {
+    width: 100%;
+    background-color: transparent;
+
+    &__content {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        width: max-content;
+        transition: all .2s ease-in;
+        padding: 12px 24px 12px 12px;
+
+        span {
+            font-size: 20px;
+            color: $white;
+            line-height: 24px;
+        }
+
+        svg {
+            width: 32px;
+            height: 32px;
+
+            path {
+                fill: $white;
+            }
+        }
+    }
+
+    &__active {
+        span {
+            font-weight: 700;
+        }
+
+        svg path {
+            fill: $white;
+        }
+    }
+
+    &:hover {
+        .link__content {
+            background-color: rgba($grey-50, 0.1);
+            border-radius: 999px;
+        }
+    }
+}

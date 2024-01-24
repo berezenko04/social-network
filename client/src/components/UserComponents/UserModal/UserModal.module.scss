@@ -1,0 +1,51 @@
+@import '@/scss/variables.scss';
+
+.modal {
+    background-color: $black;
+    -webkit-box-shadow: 0px 0px 8px 0px rgba($white, 0.92);
+    -moz-box-shadow: 0px 0px 8px 0px rgba($white, 0.92);
+    box-shadow: 0px 0px 8px 0px rgba($white, 0.92);
+    padding: 16px;
+    border-radius: 12px;
+    width: 240px;
+
+    &__wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    &__head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 16px;
+    }
+
+    &__user {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+
+        span {
+            color: $grey-500;
+        }
+    }
+
+    &__following {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+
+        li {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+
+            span {
+                color: $white;
+                font-weight: 500;
+            }
+        }
+    }
+}

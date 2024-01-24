@@ -1,0 +1,23 @@
+@import '@/scss/variables.scss';
+
+.userName {
+    color: $white;
+    font-size: 16px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+    position: relative;
+
+    &:hover {
+        text-decoration: underline;
+    }
+
+    &__modal {
+        position: absolute;
+        left: -96px;
+        top: 24px;
+        z-index: 999;
+    }
+}

@@ -1,0 +1,36 @@
+@import '@/scss/variables.scss';
+
+.postSkeleton {
+    padding: 12px 16px;
+    border-bottom: 1px solid $grey-800;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+
+    &__main {
+        width: 100%;
+
+        &__head {
+            width: 100%;
+        }
+
+        &__content {
+            margin-top: 16px;
+            width: 100%;
+        }
+
+        &__footer {
+            margin-top: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+
+            &__actions {
+                display: flex;
+                align-items: center;
+                gap: 16px;
+            }
+        }
+    }
+}

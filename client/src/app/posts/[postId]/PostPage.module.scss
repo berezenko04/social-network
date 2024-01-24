@@ -1,0 +1,15 @@
+@import '@/scss/variables.scss';
+
+.page {
+
+    &__head {
+        padding: 16px 8px 0 16px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+
+        h1 {
+            font-size: 20px;
+        }
+    }
+}

@@ -1,0 +1,16 @@
+@import '@/scss/variables.scss';
+
+
+.layout {
+    position: relative;
+
+    &__wrapper {
+        display: grid;
+        grid-template-columns: 3fr 6fr 380px;
+        gap: 0;
+    }
+
+    main {
+        border-inline: 1px solid $grey-800;
+    }
+}
