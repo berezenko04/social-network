@@ -10,6 +10,6 @@ const router = express.Router();
 
 router.post("/add", checkAuth, BookmarksController.bookmarkPost);
 router.get("/isBookmarked", checkAuth, BookmarksController.isBookmarked);
-// router.get("/get", BookmarksController.getLikesCount);
+router.get("/get", checkAuth, BookmarksController.getBookmarksByUser);
 
 export default router;

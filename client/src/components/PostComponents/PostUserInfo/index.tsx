@@ -17,7 +17,6 @@ import MoreIcon from '@/assets/icons/more.svg'
 import { IUserData } from '@/redux/slices/user/types';
 
 
-
 interface IPostUserInfoProps extends IUserData {
     createdAt: Date
 }

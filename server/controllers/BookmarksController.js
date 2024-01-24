@@ -71,3 +71,26 @@ export const isBookmarked = async (req, res) => {
         })
     }
 }
+
+export const getBookmarksByUser = async (req, res) => {
+    try {
+        const userId = req.userId;
+
+        const user = await UserModel.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        const bookmarks = await BookmarksModel.find({ users: userId });
+        const postIds = bookmarks.map(bookmark => bookmark.post);
+        const posts = await PostModel.find({ _id: { $in: postIds } });
+
+        res.status(200).json(posts);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({
+            message: "Server error"
+        })
+    }
+}

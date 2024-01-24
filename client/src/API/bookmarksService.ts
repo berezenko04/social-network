@@ -10,7 +10,7 @@ export const isPostBookmarked = async (postId: string) => {
     return data;
 }
 
-// export const getLikesCount = async (postId: string) => {
-//     const { data } = await axios.get(`/likes/get?postId=${postId}`);
-//     return data;
-// }
+export const getBookmarks = async () => {
+    const { data } = await axios.get(`/bookmarks/get`);
+    return data;
+}
