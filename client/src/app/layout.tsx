@@ -30,6 +30,7 @@ export default function RootLayout({
           <SkeletonTheme baseColor="hsl(213, 4%, 46%)" highlightColor="hsl(0, 0%, 90%)">
             {children}
             <CheckAuth />
+            <div id='modalRoot'></div>
           </SkeletonTheme>
         </ReduxProvider>
       </body>

@@ -1,12 +1,13 @@
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 
 //styles
 import styles from './ActionsDropdown.module.scss'
 
 type TActionsDropdownProps = {
     children: React.ReactNode,
-    forwardedRef: React.RefObject<HTMLButtonElement>
-    setIsOpened: (i: boolean) => void
+    forwardedRef: React.RefObject<HTMLButtonElement>,
+    setIsOpened: (i: boolean) => void,
+    iconColor?: string
 }
 
 const ActionsDropdown: React.FC<TActionsDropdownProps> = ({ children, forwardedRef, setIsOpened }) => {
@@ -23,7 +24,8 @@ const ActionsDropdown: React.FC<TActionsDropdownProps> = ({ children, forwardedR
         return () => {
             document.removeEventListener('click', handleClickOutside);
         }
-    }, [forwardedRef])
+    }, [forwardedRef]);
+
 
     return (
         <>

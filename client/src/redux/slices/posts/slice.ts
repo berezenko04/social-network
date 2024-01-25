@@ -1,11 +1,11 @@
 import { Status } from "@/@types/type";
-import { IFetchPosts, IPostState, TPost } from "./types";
+import { IFetchPosts, IPostState, TDeletePost, TPost } from "./types";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { createPost, fetchPosts } from "./asyncActions";
+import { createPost, deletePost, fetchPosts } from "./asyncActions";
 
 
 const initialState: IPostState = {
-    data: null,
+    data: [],
     count: 0,
     status: Status.LOADING
 }
@@ -17,7 +17,7 @@ export const postSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(fetchPosts.pending, (state) => {
-            state.data = null;
+            state.data = [];
             state.count = 0;
             state.status = Status.LOADING
         })
@@ -29,14 +29,17 @@ export const postSlice = createSlice({
         })
 
         builder.addCase(fetchPosts.rejected, (state) => {
-            state.data = null;
+            state.data = [];
             state.count = 0;
             state.status = Status.ERROR;
         })
 
         builder.addCase(createPost.fulfilled, (state, action: PayloadAction<TPost>) => {
-            console.log('redux', action.payload);
             state.data?.unshift(action.payload);
+        })
+
+        builder.addCase(deletePost.fulfilled, (state, action: PayloadAction<TDeletePost>) => {
+            state.data = state.data?.filter((i) => i._id !== action.payload.postId);
         })
     }
 })

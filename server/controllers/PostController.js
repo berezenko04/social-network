@@ -113,3 +113,39 @@ export const getPost = async (req, res) => {
         res.status(500).json({ message: "Server error" });
     }
 }
+
+export const deletePost = async (req, res) => {
+    try {
+        const userId = req.userId;
+        const postId = req.query.postId;
+
+        const user = await UserModel.findById(userId);
+        const post = await PostModel.findById(postId);
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        if (!post) {
+            return res.status(404).json({ message: "Post not found" });
+        }
+
+        if (post.user.toString() !== user._id.toString()) {
+            return res.status(404).json({ message: "Access denied" })
+        }
+
+        await PostModel.deleteOne({ _id: postId });
+        await LikesModel.deleteOne({ post: postId });
+        await BookmarksModel.deleteOne({ post: postId });
+
+        res.status(200).json({
+            message: 'Success',
+            postId: postId
+        })
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({
+            message: 'Server error'
+        })
+    }
+}

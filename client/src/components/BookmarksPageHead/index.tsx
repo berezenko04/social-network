@@ -34,6 +34,7 @@ const BookmarksPageHead: React.FC = () => {
     const handleClearBookmarks = async () => {
         try {
             dispatch(clearBookmarksData());
+            setIsOpened(false);
             await clearBookmarks();
         } catch (err) {
             toast.error('An error occurred');

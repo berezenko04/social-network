@@ -41,6 +41,7 @@ const PostItem: React.FC<TPost> = ({ _id, user, content, attached, createdAt }) 
                         <div className={styles.postItem__main}>
                             <PostUserInfo
                                 date={formatDate(createdAt)}
+                                postId={_id}
                                 {...userData}
                             />
                             <PostContent
