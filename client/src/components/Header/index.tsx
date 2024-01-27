@@ -1,4 +1,7 @@
+'use client';
+
 import Link from 'next/link';
+import { useSelector } from 'react-redux';
 
 //styles
 import styles from './Header.module.scss'
@@ -17,8 +20,12 @@ import MessageIcon from '@/assets/icons/message.svg'
 import BookmarkIcon from '@/assets/icons/bookmark.svg'
 import UserIcon from '@/assets/icons/user.svg'
 
+//redux
+import { userDataSelector } from '@/redux/slices/user/selectors';
+
 
 const Header: React.FC = () => {
+    const userData = useSelector(userDataSelector);
 
     const navigation = [
         { name: 'Home', icon: <HomeIcon />, href: '/home' },
@@ -26,7 +33,7 @@ const Header: React.FC = () => {
         { name: 'Notifications', icon: <BellIcon />, href: '/notifications' },
         { name: 'Messages', icon: <MessageIcon />, href: '/messages' },
         { name: 'Bookmarks', icon: <BookmarkIcon />, href: '/bookmarks' },
-        { name: 'Profile', icon: <UserIcon />, href: '/profile' },
+        { name: 'Profile', icon: <UserIcon />, href: `/profile/${userData?.username}` },
     ];
 
     return (

@@ -10,6 +10,8 @@ export interface IUserData {
     email: string,
     name: string,
     avatarUrl: string,
+    posterUrl: string,
+    siteUrl: string,
     token: string,
     birthDate: string,
     username: string,

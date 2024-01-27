@@ -7,7 +7,6 @@ import PrimaryLayout from '@/components/layouts/PrimaryLayout'
 import CreatePost from '@/components/CreatePost'
 import PostsList from '@/components/PostComponents/PostsList'
 
-
 const Home: NextPage = () => {
     return (
         <PrimaryLayout>

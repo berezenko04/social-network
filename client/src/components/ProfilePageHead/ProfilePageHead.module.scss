@@ -1,0 +1,23 @@
+.head {
+    position: sticky;
+    padding: 8px 16px;
+    z-index: 9999;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.65);
+
+    &__wrapper {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+    }
+
+    &__info {
+        h1 {
+            font-size: 20px;
+        }
+
+        p {
+            font-size: 14px;
+        }
+    }
+}

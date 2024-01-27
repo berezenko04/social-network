@@ -6,6 +6,10 @@ const UserSchema = new mongoose.Schema(
             type: String,
             default: "http://localhost:3001/uploads/default-avatar.jpg",
         },
+        posterUrl: {
+            type: String,
+            default: ''
+        },
         name: {
             type: String,
             required: true,
@@ -14,6 +18,10 @@ const UserSchema = new mongoose.Schema(
             type: String,
             default: '',
             unique: true
+        },
+        siteUrl: {
+            type: String,
+            default: ''
         },
         email: {
             type: String,
