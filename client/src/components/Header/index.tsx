@@ -33,7 +33,7 @@ const Header: React.FC = () => {
         { name: 'Notifications', icon: <BellIcon />, href: '/notifications' },
         { name: 'Messages', icon: <MessageIcon />, href: '/messages' },
         { name: 'Bookmarks', icon: <BookmarkIcon />, href: '/bookmarks' },
-        { name: 'Profile', icon: <UserIcon />, href: `/profile/${userData?.username}` },
+        { name: 'Profile', icon: <UserIcon />, href: `/${userData?.username}` },
     ];
 
     return (

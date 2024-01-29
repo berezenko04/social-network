@@ -184,28 +184,3 @@ export const getUsers = async (req, res) => {
     }
 }
 
-export const getUserPostsCountByUsername = async (req, res) => {
-    try {
-        const username = req.query.username;
-
-        const user = await UserModel.findOne({ username: username });
-
-        if (!user) {
-            return res.status(404).json({ message: "User not found" });
-        }
-
-        console.log('User', user);
-
-        const postsCount = await PostModel.find({ user: user._id }).countDocuments();
-
-        res.status(200).json({
-            count: postsCount
-        })
-
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({
-            message: "Server error"
-        })
-    }
-}

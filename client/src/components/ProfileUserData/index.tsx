@@ -1,8 +1,9 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { useSelector } from 'react-redux'
 
 //styles
-import styles from './ProfilePageUser.module.scss'
+import styles from './ProfileUserData.module.scss'
 
 //components
 import Avatar from '../UI/Avatar'
@@ -10,16 +11,20 @@ import Button from '../UI/Button'
 
 //redux
 import { IUserData } from '@/redux/slices/user/types'
+import { userDataSelector } from '@/redux/slices/user/selectors'
 
 //icons
 import LinkIcon from '@/assets/icons/copy.svg'
 import CalendarIcon from '@/assets/icons/calendar.svg'
+import FollowButton from '../UserComponents/FollowButton'
 
 
 const ProfilePageUser: React.FC<IUserData> = ({
-    name, username, posterUrl, avatarUrl, description,
+    _id, name, username, posterUrl, avatarUrl, description,
     siteUrl, birthDate, following, followers
 }) => {
+    const myData = useSelector(userDataSelector);
+
     return (
         <div className={styles.user}>
             <div className={styles.user__wrappper}>
@@ -41,13 +46,17 @@ const ProfilePageUser: React.FC<IUserData> = ({
                             <Avatar size='lg' imgSrc={avatarUrl} />
                         </div>
                         <div />
-                        <Button
-                            variant='fourtiary'
-                            size='sm'
-                            fullWidth={false}
-                        >
-                            Edit profile
-                        </Button>
+                        {myData?._id === _id ?
+                            <Button
+                                variant='fourtiary'
+                                size='sm'
+                                fullWidth={false}
+                            >
+                                Edit profile
+                            </Button>
+                            :
+                            <FollowButton targetId={_id} />
+                        }
                     </div>
                     <div className={styles.user__main__info}>
                         <div className={styles.user__main__info__name}>

@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation'
 
 //styles
-import styles from './ProfilePageHead.module.scss'
+import styles from './ProfileHead.module.scss'
 
 //components
 import IconButton from '../UI/IconButton'

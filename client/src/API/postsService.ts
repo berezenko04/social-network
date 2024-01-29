@@ -24,3 +24,13 @@ export const removePost = async (postId: string) => {
     const { data } = await axios.post(`/posts/delete?postId=${postId}`);
     return data;
 }
+
+export const getUserPosts = async (username: string) => {
+    const { data } = await axios.get(`/posts/getPosts?username=${username}`);
+    return data;
+}
+
+export const getLikedPosts = async (username: string) => {
+    const { data } = await axios.get(`/posts/getLiked?username=${username}`);
+    return data;
+}

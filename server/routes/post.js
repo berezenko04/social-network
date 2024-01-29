@@ -23,5 +23,7 @@ router.post("/create", upload.array('images[]'), checkAuth, PostController.creat
 router.get("/get", PostController.getPosts);
 router.get("/single", PostController.getPost);
 router.post("/delete", checkAuth, PostController.deletePost);
+router.get("/getPosts", PostController.getUserPostsByUsername);
+router.get("/getLiked", PostController.getUserLikedPostsByUsername);
 
 export default router;

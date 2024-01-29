@@ -1,0 +1,44 @@
+@import '@/scss/variables.scss';
+
+.list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid $grey-800;
+
+    &__item {
+        display: flex;
+        flex: 1;
+
+        &__button {
+            width: 100%;
+            color: $grey-500;
+            text-align: center;
+            font-size: 16px;
+            padding: 16px;
+            transition: all .2s ease-in;
+            position: relative;
+
+            &:hover {
+                background-color: rgba($white, 0.1);
+            }
+
+            &__active {
+                color: $white;
+                font-weight: 500;
+
+                &::after {
+                    content: '';
+                    position: absolute;
+                    bottom: 0;
+                    left: 10%;
+                    height: 3px;
+                    width: 80%;
+                    margin: 0 auto;
+                    background-color: $primary-500;
+                    border-radius: 32px;
+                }
+            }
+        }
+    }
+}

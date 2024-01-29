@@ -149,3 +149,56 @@ export const deletePost = async (req, res) => {
         })
     }
 }
+
+export const getUserPostsByUsername = async (req, res) => {
+    try {
+        const username = req.query.username;
+
+        const user = await UserModel.findOne({ username: username });
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        const posts = await PostModel.find({ user: user._id });
+        const postsCount = await PostModel.find({ user: user._id }).countDocuments();
+
+        res.status(200).json({
+            posts: posts,
+            count: postsCount
+        })
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({
+            message: "Server error"
+        })
+    }
+}
+
+export const getUserLikedPostsByUsername = async (req, res) => {
+    try {
+        const username = req.query.username;
+
+        const user = await UserModel.findOne({ username: username });
+
+        if (!user) {
+            return res.status(404).json({
+                message: 'User not found'
+            });
+        }
+
+        const likes = await LikesModel.find({ users: user._id.toString() });
+        const postIds = likes.map(like => like.post);
+        const posts = await PostModel.find({ _id: { $in: postIds } });
+
+        res.status(200).json({
+            posts
+        })
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({
+            message: 'Server error'
+        })
+    }
+}
