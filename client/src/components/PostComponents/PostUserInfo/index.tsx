@@ -10,18 +10,17 @@ import styles from './PostUserInfo.module.scss'
 import UserName from '../../UserComponents/UserName';
 import IconButton from '../../UI/IconButton';
 import ActionsDropdown from '@/components/ActionsDropdown';
-import Modal from '@/components/Modal';
 
 //icons
 import MoreIcon from '@/assets/icons/more.svg'
 import ReportIcon from '@/assets/icons/report.svg'
 import TrashIcon from '@/assets/icons/trash.svg'
-import CloseIcon from '@/assets/icons/close.svg'
 
 //redux
 import { IUserData } from '@/redux/slices/user/types';
 import { userDataSelector } from '@/redux/slices/user/selectors';
 import { deletePost } from '@/redux/slices/posts/asyncActions';
+import ReportModal from '@/components/ReportModal';
 
 
 
@@ -35,15 +34,11 @@ const PostUserInfo: React.FC<IPostUserInfoProps> = ({ name, username, postId, _i
     const router = useRouter();
     const moreRef = useRef<HTMLButtonElement | null>(null);
     const [isOpened, setIsOpened] = useState<boolean>(false);
-    const [isModalOpened, setIsModalOpened] = useState<boolean>(false);
+    const [isReportModalOpened, setIsReportModalOpened] = useState<boolean>(false);
     const userData = useSelector(userDataSelector);
 
     const handleDeletePost = async () => {
         await dispatch(deletePost(postId));
-    }
-
-    const handleReportPost = () => {
-
     }
 
     return (
@@ -84,28 +79,17 @@ const PostUserInfo: React.FC<IPostUserInfoProps> = ({ name, username, postId, _i
                                 Delete post
                             </button>
                         }
-                        <button onClick={() => setIsModalOpened(true)}>
+                        <button onClick={() => setIsReportModalOpened(true)}>
                             <ReportIcon />
                             Report post
                         </button>
                     </ActionsDropdown>
                 </div>
             }
-            <Modal
-                isOpened={isModalOpened}
-                handleClose={() => setIsModalOpened(false)}
-            >
-                <div className={styles.reportModal}>
-                    <div className={styles.reportModal__head}>
-                        <IconButton
-                            variant='primary'
-                            icon={<CloseIcon />}
-                            onClick={() => setIsModalOpened(false)}
-                        />
-                        <h1>Gathering info</h1>
-                    </div>
-                </div>
-            </Modal>
+            <ReportModal
+                isOpened={isReportModalOpened}
+                handleClose={() => setIsReportModalOpened(false)}
+            />
         </div>
     )
 }

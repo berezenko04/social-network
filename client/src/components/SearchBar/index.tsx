@@ -7,14 +7,19 @@ import debounce from 'lodash.debounce'
 //styles
 import styles from './SearchBar.module.scss'
 
+//components
+import UserItem from '../UserComponents/UserItem';
+
 //icons
 import SearchIcon from '@/assets/icons/search.svg'
 import CloseIcon from '@/assets/icons/close.svg'
+
+//redux
 import { IUserData } from '@/redux/slices/user/types';
+
+//API
 import { searchByUser } from '@/API/searchService';
-import Link from 'next/link';
-import Avatar from '../UI/Avatar';
-import UserItem from '../UserComponents/UserItem';
+
 
 const SearchBar: React.FC = () => {
     const [searchValue, setSearchValue] = useState<string>('');

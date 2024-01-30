@@ -30,11 +30,9 @@ const ProfilePageHead: React.FC<TProfilePageHeadProps> = ({ postsCount, name }) 
                 />
                 <div className={styles.head__info}>
                     <h1>{name}</h1>
-                    {postsCount &&
-                        <p>
-                            {postsCount} {postsCount > 1 ? 'posts' : 'post'}
-                        </p>
-                    }
+                    <p>
+                        {postsCount} {postsCount !== 1 ? 'posts' : 'post'}
+                    </p>
                 </div>
             </div>
         </div>

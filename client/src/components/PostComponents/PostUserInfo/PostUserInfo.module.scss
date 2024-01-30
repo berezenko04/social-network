@@ -30,20 +30,4 @@
         top: 0;
         z-index: 999;
     }
-
-    &__reportModal {
-        display: flex;
-        flex-direction: column;
-        gap: 0;
-
-        &__head {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-
-            h1 {
-                font-size: 20px;
-            }
-        }
-    }
 }

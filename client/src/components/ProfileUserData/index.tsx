@@ -72,7 +72,11 @@ const ProfilePageUser: React.FC<IUserData> = ({
                             {siteUrl &&
                                 <div>
                                     <LinkIcon />
-                                    <Link href={siteUrl}>{siteUrl}</Link>
+                                    <Link
+                                        target='_blank'
+                                        href={`https://${siteUrl}`}>
+                                        {siteUrl}
+                                    </Link>
                                 </div>
                             }
                             <div>

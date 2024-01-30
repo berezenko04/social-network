@@ -102,7 +102,11 @@ const CreatePost: React.FC = () => {
         <div className={styles.createPost}>
             <div className={styles.createPost__wrapper}>
                 <div className={styles.createPost__avatar}>
-                    <Avatar size='sm' profileLink={'/'} imgSrc={user?.avatarUrl} />
+                    <Avatar
+                        size='sm'
+                        profileLink={`/${user?.username}`}
+                        imgSrc={user?.avatarUrl}
+                    />
                 </div>
                 <form
                     className={styles.createPost__main}

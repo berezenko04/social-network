@@ -1,0 +1,47 @@
+@import '@/scss/variables.scss';
+
+.radio {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    transition: all .2s ease-in;
+    border-radius: 100%;
+    cursor: pointer;
+
+    &:hover {
+        background-color: rgba($white, 0.1);
+
+        &:has(.checked) {
+            background-color: rgba($primary-500, 0.1);
+        }
+    }
+
+    &__wrapper {
+        width: 16px;
+        height: 16px;
+        border-radius: 100%;
+        border: 2px solid $grey-500;
+        box-sizing: content-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        svg path {
+            fill: $white;
+        }
+    }
+
+    .checked {
+        background-color: $primary-500;
+        border-color: $primary-500;
+    }
+
+    &__element {
+        display: none;
+        width: 100%;
+        height: 100%;
+    }
+}
