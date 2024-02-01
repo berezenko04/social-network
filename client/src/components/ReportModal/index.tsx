@@ -20,6 +20,7 @@ import CloseIcon from '@/assets/icons/close.svg'
 
 //data
 import { reportItems } from '@/data';
+import { toast } from 'react-toastify';
 
 
 
@@ -42,6 +43,11 @@ const ReportModal: React.FC<TModalProps> = ({ isOpened, handleClose }) => {
             setIsFullScrolled(scrollTop + clientHeight >= scrollHeight);
         }
     };
+
+    const handleSubmit = () => {
+        handleClose();
+        toast.info('Complaint has been sended');
+    }
 
     if (!isOpened) return null;
 
@@ -102,6 +108,7 @@ const ReportModal: React.FC<TModalProps> = ({ isOpened, handleClose }) => {
                         variant='secondary'
                         size='lg'
                         disabled={!selectedRadio.length}
+                        onClick={handleSubmit}
                     >
                         Send
                     </Button>
